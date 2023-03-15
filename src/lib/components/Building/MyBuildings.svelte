@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import Building from './Building.svelte';
 	import { building_id } from '../../stores/building';
 	import { page } from '../../stores/page';
 
@@ -26,10 +25,21 @@
 		building_id.set(id);
 	};
 
-	const removeBuilding = (building) => {
+	const removeBuilding = async (building) => {
 		let text = `Are you sure you want to remove the building \n ${building.adress}`;
-		if (confirm(text)) {
+		if (confirm(text) == true) {
+			let result = await fetch('https://Mini-axami.antonpandi.repl.co/remove/buildings', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(building)
+			});
+			console.log('Result: ', JSON.stringify(result));
+
 			console.log('Building deleted: ', building);
+
+			buildings = buildings.filter((b) => b.id != building.id);
 		} else console.log('Deletion caceled');
 	};
 </script>

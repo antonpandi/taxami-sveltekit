@@ -18,7 +18,7 @@
 	}
 	@media (min-width: 600px) {
 		main {
-			max-width: 50%;
+			max-width: 80%;
 		}
 	}
 </style>
