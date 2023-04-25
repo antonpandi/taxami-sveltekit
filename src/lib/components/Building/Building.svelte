@@ -14,6 +14,8 @@
 		assignment_description,
 		assignment_priority,
 		assignment_deadline,
+		assignment_estimated_time,
+		assignment_estimated_cost,
 		assignment_email;
 
 	onMount(async () => {
@@ -57,9 +59,15 @@
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
 			body: JSON.stringify({
+				building_id : building.id,
 				assignment_title,
 				assignment_description,
-				assignment_email
+				assignment_email,
+				assignment_priority,
+				assignment_deadline,
+				assignment_estimated_time,
+				assignment_estimated_cost,
+
 			})
 		})
 			.then()
@@ -74,6 +82,14 @@
 	const setDeadline = (ev) => {
 		assignment_deadline = ev.target.value;
 		console.log(assignment_deadline);
+	};
+	const setAmount = (ev) => {
+		assignment_estimated_cost = ev.target.value;
+		console.log(assignment_estimated_cost);
+	};
+	const setTime = (ev) => {
+		assignment_estimated_time = ev.target.value;
+		console.log(assignment_estimated_time);
 	};
 
 	const linkWorker = (ev) => {
@@ -139,7 +155,7 @@
 			name="description"
 			placeholder="Description"
 		/>
-		<h4>Priorti</h4>
+		<h4>Priority</h4>
 		<div class="radiomenu">
 			<div class="radio">
 				<p>High</p>
@@ -152,6 +168,10 @@
 		</div>
 		<h4>Deadline</h4>
 		<input on:input={setDeadline} type="date" name="date" id="" />
+		<h4>Estimated Cost</h4>
+		<input on:input={setAmount} type="text" name="title" placeholder="Amount"  />
+		<h4>Estimated Time</h4>
+		<input on:input={setTime} type="text" name="title" placeholder="Time"  />
 		<h4>Email</h4>
 		<input bind:value={assignment_email} type="text" name="email" placeholder="Email" />
 		<button type="submit">Add assignment</button>
