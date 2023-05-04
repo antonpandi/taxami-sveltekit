@@ -22,6 +22,7 @@
 		<button on:click={myBuildings}>My Buildings</button>
 		<button on:click={addbuilding}>Add New Building</button>
 	</div>
+
 {/if}
 
 {#if $page == 'my_buildings'}

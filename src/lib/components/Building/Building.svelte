@@ -3,13 +3,20 @@
 
 	//Variables
 	import { building_id } from '../../stores/building';
-	let id;
+	import { each } from 'svelte/internal';
+	import { userRole } from '../../stores/auth';
+	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
+
+	let id,
+	role = '';
 	building_id.subscribe((i) => (id = i));
+	userRole.subscribe((r) => (role = r));
 
 	let building,
 		workers,
 		workers_count,
 		worker_email,
+		assignments,
 		assignment_title,
 		assignment_description,
 		assignment_priority,
@@ -33,6 +40,7 @@
 		console.log(building);
 
 		getWorkers();
+		getAssignments();
 	});
 
 	const getWorkers = async () => {
@@ -52,6 +60,19 @@
 		console.log(workers);
 		console.log(workers_count);
 	};
+	const getAssignments = async () => {
+		await fetch('https://Mini-axami.antonpandi.repl.co/assignments/building', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
+			body: JSON.stringify({
+				building_id: id
+			})
+		})
+			.then(async (res) => (assignments = await res.json()))
+			.catch((err) => console.log(err));
+
+	}
 
 	const addAssignment = () => {
 		fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
@@ -90,6 +111,13 @@
 	const setTime = (ev) => {
 		assignment_estimated_time = ev.target.value;
 		console.log(assignment_estimated_time);
+	};
+	
+	const setAssignmentId = (ev) => {
+		let el = ev.target;
+		let id = el.value;
+		assignment_email = el.value;
+		console.log(assignment_email);
 	};
 
 	const linkWorker = (ev) => {
@@ -142,6 +170,18 @@
 {:else}
 	<p>No workers found</p>
 {/if}
+{#if assignments}
+	<div id="assignments" class="container">
+		<h3>Assignment</h3>
+		{#each assignments as assignment}
+		<!-- {#if !assignment.worker_id} -->
+            <ClientAssignment bind:assignment />
+		<!-- {/if} -->
+		{/each}
+	</div>
+{:else}
+	<p>No assignment found</p>
+{/if}
 
 <div class="createAssignment container">
 	<form on:submit|preventDefault={addAssignment}>
@@ -169,11 +209,19 @@
 		<h4>Deadline</h4>
 		<input on:input={setDeadline} type="date" name="date" id="" />
 		<h4>Estimated Cost</h4>
-		<input on:input={setAmount} type="text" name="title" placeholder="Amount"  />
+		<input on:input={setAmount} type="text" name="setAmount" placeholder="Amount"  />
 		<h4>Estimated Time</h4>
-		<input on:input={setTime} type="text" name="title" placeholder="Time"  />
+		<input on:input={setTime} type="text" name="setTime" placeholder="Time"  />
 		<h4>Email</h4>
-		<input bind:value={assignment_email} type="text" name="email" placeholder="Email" />
+		<select name="cars" id="cars">
+			{#if workers}
+				{#each workers as worker}
+					<option on:click={setAssignmentId} value={worker.id}>{worker.fname} {worker.lname}</option>
+				{/each}
+			{/if}
+			<option on:click={setAssignmentId} value={null}>No worker</option>
+			
+		</select>
 		<button type="submit">Add assignment</button>
 	</form>
 </div>
@@ -212,4 +260,6 @@
 	.radiomenu {
 		display: flex;
 	}
+
+	
 </style>
