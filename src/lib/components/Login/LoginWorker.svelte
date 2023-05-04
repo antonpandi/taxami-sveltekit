@@ -1,11 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	let email = '',
-		password = '';
+	let email = '';
 
-	const submit = async () => {
-		console.log('Submit:', 'Email:', email, 'Password:', password);
+	const submitWorker = async () => {
+		console.log('Submit:', 'Email:', email);
 
 		await fetch('https://Mini-axami.antonpandi.repl.co/login/worker', {
 			method: 'POST',
@@ -22,7 +21,7 @@
 	};
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={submitWorker}>
 	<h4>Email:</h4>
 	<input bind:value={email} type="email" name="email" placeholder="Email" />
 	<hr />

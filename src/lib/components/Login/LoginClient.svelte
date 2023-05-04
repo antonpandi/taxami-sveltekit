@@ -4,7 +4,7 @@
 	let email = '',
 		password = '';
 
-	const submit = async () => {
+	const submitClient = async () => {
 		console.log('Submit:', 'Email:', email, 'Password:', password);
 
 		await fetch('https://Mini-axami.antonpandi.repl.co/login/client', {
@@ -23,7 +23,7 @@
 	};
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={submitClient}>
 	<h4>Email:</h4>
 	<input bind:value={email} type="email" name="email" placeholder="Email" />
 	<hr />
