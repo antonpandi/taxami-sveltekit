@@ -9,7 +9,7 @@
 	import { page } from '../../stores/page';
 
 	const buildings = () => {
-		page.set('buildings');
+		page.set('my_buildings');
 		console.log('Page set to: ', $page);
 	};
 	const availableAssignments = () => {
@@ -22,11 +22,6 @@
 	}
 </script>
 
-<div id="menu">
-	<button>Buildings</button>
-	<button>Available Jobs</button>
-	<button>My Jobs</button>
-</div>
 
 {#if $page == 'home'}
 	<div id="menu">
@@ -40,10 +35,10 @@
 	<MyBuildings />
 {/if}
 
-{#if $page == 'add_building'}
+{#if $page == 'available_jobs'}
 	<AvailableAssignments />
 {/if}
 
-{#if $page == 'building'}
+{#if $page == 'my_jobs'}
 	<MyAssignments />
 {/if}

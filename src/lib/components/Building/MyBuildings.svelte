@@ -3,11 +3,13 @@
 	import Building from './Building.svelte';
 	import { building_id } from '../../stores/building';
 	import { page } from '../../stores/page';
+	import { role } from '../../stores/role';
 
 	let buildings;
 
 	onMount(async () => {
 		try {
+			console.log("trying to get buildings")
 			const response = await fetch('https://Mini-axami.antonpandi.repl.co/buildings/mine', {
 				method: 'GET',
 				credentials: 'include'
