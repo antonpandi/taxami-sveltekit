@@ -1,10 +1,11 @@
 
 <script>
-	import { assign } from "svelte/internal";
+	import EditAssignment from "./EditAssignment.svelte";
 
-    export let assignment
+    export let assignment, assignments, workers
     
-	let assignmentClass = "";
+	let assignmentClass = "",
+    edit = false;
     const setCompleted = () => {assignmentClass = "container completed"}
     const setUncompleted = () => {assignmentClass = "container uncompleted"}
     const setDeadline = () => {assignmentClass = "container deadline"}
@@ -24,10 +25,10 @@
     }
 
     const editAssignment = (job) => {
-
+        edit = true;
     }
     const deleteAssignment = async (job) => {
-        let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
+        let option = confirm(`Are you sure you want to delete this assignment? ${assignment.title}`)
         console.log(option)
         if(option){
             await fetch('https://Mini-axami.antonpandi.repl.co/remove/assignment', {
@@ -38,7 +39,11 @@
 				id: assignment.id
 			})
 		})
-			.then((res) => console.log(res))
+			.then((res) => {
+                console.log(res)
+                assignments = assignments.filter( (a) => a.id =! assignment.id)
+                
+            })
 			.catch((err) => console.log(err));
         }
     }
@@ -47,6 +52,10 @@
 
     $: assignment, setClassName();
 </script>
+
+{#if edit}
+    <EditAssignment bind:assignment bind:edit  bind:workers />
+{/if}
 
 <div class={assignmentClass}> 
     <h3>{assignment.title}</h3>

@@ -5,7 +5,12 @@
 	import { building_id } from '../../stores/building';
 	import { each } from 'svelte/internal';
 	import { userRole } from '../../stores/auth';
+<<<<<<< HEAD
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
+=======
+	import {worker} from '../../stores/workers'
+	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
+>>>>>>> 66a933ed642e3beb6f5997ebc5f10b88067fa892
 
 	let id,
 	role = '';
@@ -25,6 +30,7 @@
 		assignment_estimated_cost,
 		assignment_email;
 
+		$: console.log("Worker",$worker)
 	onMount(async () => {
 		await fetch('https://Mini-axami.antonpandi.repl.co/find/building', {
 			method: 'POST',
@@ -52,7 +58,11 @@
 				building_id: id
 			})
 		})
-			.then(async (res) => (workers = await res.json()))
+			.then(async (res) => { 
+				workers = await res.json();
+				worker.set(workers)
+				console.log("Workers", workers);
+			})
 			.catch((err) => console.log(err));
 
 		workers_count = workers.length;
@@ -175,7 +185,11 @@
 		<h3>Assignment</h3>
 		{#each assignments as assignment}
 		<!-- {#if !assignment.worker_id} -->
+<<<<<<< HEAD
             <Assignment bind:assignment />
+=======
+            <ClientAssignment bind:assignment bind:assignments bind:workers/>
+>>>>>>> 66a933ed642e3beb6f5997ebc5f10b88067fa892
 		<!-- {/if} -->
 		{/each}
 	</div>
