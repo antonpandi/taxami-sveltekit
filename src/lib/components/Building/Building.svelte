@@ -5,7 +5,7 @@
 	import { building_id } from '../../stores/building';
 	import { each } from 'svelte/internal';
 	import { userRole } from '../../stores/auth';
-	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
+	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 
 	let id,
 	role = '';
@@ -175,7 +175,7 @@
 		<h3>Assignment</h3>
 		{#each assignments as assignment}
 		<!-- {#if !assignment.worker_id} -->
-            <ClientAssignment bind:assignment />
+            <Assignment bind:assignment />
 		<!-- {/if} -->
 		{/each}
 	</div>

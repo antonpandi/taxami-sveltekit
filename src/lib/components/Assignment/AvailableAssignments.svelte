@@ -1,6 +1,7 @@
 
 <script>
     import { onMount } from 'svelte';
+	import Assignment from '$lib/components/Assignment/Assignment.svelte';
     //Variables
     let assignments;
 
@@ -22,3 +23,9 @@
 	});
 
 </script>
+
+{#if assignments}
+	{#each assignments as assignment}
+	<Assignment bind:assignment />
+	{/each}
+{/if}
