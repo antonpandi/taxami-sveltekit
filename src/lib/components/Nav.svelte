@@ -21,7 +21,7 @@
 <nav>
 	<ul class="nav_container">
 		<li><a on:click={setPage} href="/#">Home</a></li>
-		{#if $authenticated == true}
+		{#if $authenticated}
 			<li><a href="/" on:click={logout}>Logout</a></li>
 		{:else}
 			<li><a href="/register">Register</a></li>

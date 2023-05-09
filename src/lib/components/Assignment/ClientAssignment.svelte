@@ -1,10 +1,11 @@
 
 <script>
-	import { assign } from "svelte/internal";
+	import EditAssignment from "./EditAssignment.svelte";
 
-    export let assignment
+    export let assignment, workers
     
-	let assignmentClass = "";
+	let assignmentClass = "",
+    edit = false;
     const setCompleted = () => {assignmentClass = "container completed"}
     const setUncompleted = () => {assignmentClass = "container uncompleted"}
     const setDeadline = () => {assignmentClass = "container deadline"}
@@ -24,7 +25,7 @@
     }
 
     const editAssignment = (job) => {
-
+        edit = true;
     }
     const deleteAssignment = async (job) => {
         let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
@@ -47,6 +48,10 @@
 
     $: assignment, setClassName();
 </script>
+
+{#if edit}
+    <EditAssignment bind:assignment bind:edit  bind:workers />
+{/if}
 
 <div class={assignmentClass}> 
     <h3>{assignment.title}</h3>
