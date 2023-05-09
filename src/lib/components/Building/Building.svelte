@@ -181,7 +181,7 @@
 		<h3>Assignment</h3>
 		{#each assignments as assignment}
 		<!-- {#if !assignment.worker_id} -->
-            <ClientAssignment bind:assignment bind:workers/>
+            <ClientAssignment bind:assignment bind:assignments bind:workers/>
 		<!-- {/if} -->
 		{/each}
 	</div>
