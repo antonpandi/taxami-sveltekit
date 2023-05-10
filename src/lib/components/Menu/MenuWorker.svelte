@@ -1,8 +1,9 @@
 <script>
 	//Components
-	import MyBuildings from '../Building/MyBuildings.svelte';
-	import AvailableAssignments from '../Assignment/AvailableAssignments.svelte';
-	import MyAssignments from '../Assignment/MyAssignments.svelte';
+	import MyBuildings from '$lib/components/Building/MyBuildings.svelte';
+	import AvailableAssignments from '$lib/components/Assignment/AvailableAssignments.svelte';
+	import MyAssignments from '$lib/components/Assignment/MyAssignments.svelte';
+	import Building from '$lib/components/Building/Building.svelte';
 
 
 	//Variables
@@ -41,4 +42,7 @@
 
 {#if $page == 'my_jobs'}
 	<MyAssignments />
+{/if}
+{#if $page == 'building'}
+	<Building />
 {/if}

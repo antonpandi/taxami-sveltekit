@@ -2,12 +2,13 @@
 	import { onMount } from "svelte";
 
 
-    export let assignment, edit, workers
+    export let assignment, method, workers
 
     onMount(() => {
         console.log("Assignment", assignment);
         assignment.deadline_date = assignment.deadline.split('T')[0]
     })
+	
     const confirmEdit = async () => { 
         assignment.deadline = assignment.deadline_date
         await fetch('https://Mini-axami.antonpandi.repl.co/edit/assignment', {
@@ -20,7 +21,7 @@
 		})
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
-        edit = false;
+        method = "";
     }
 
     $: console.log("Assignment", assignment)
@@ -95,7 +96,7 @@
     <!-- <div class="btn container">
         <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
         <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
-    </div> --><h3>Create Assignment</h3>
+    </div> --><h3>{method} Assignment </h3>
 		<h4>Title</h4>
 		<input bind:value={assignment.title} type="text" name="title" placeholder="Title" /> 
 		<h4>Description</h4>
@@ -125,13 +126,17 @@
 		<h4>Email</h4>
 		<select name="cars" id="cars">
 			{#if workers}
-				{#each workers as worker}
-					<option on:click={setAssignmentId} value={worker.id}>{worker.fname} {worker.lname}</option>
+			<option on:click={setAssignmentId} value={null} selected>No worker</option>
+			{#each workers as worker}
+					<option  on:click={setAssignmentId} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
 				{/each}
 			{/if}
-			<option on:click={setAssignmentId} value={null}>No worker</option>
 			
 		</select>
-		<button type="submit">Add assignment</button>
-    <button on:click={confirmEdit}> Confirm</button>
+		{#if method == "Create"}
+			<button type="submit">Add assignment</button>
+		{:else if method == "Edit"}
+			<button on:click={confirmEdit}> Confirm</button>
+		{/if}
+		<button on:click={() => method = ""}> Cancel</button>
 </div>

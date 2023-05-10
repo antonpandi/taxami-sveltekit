@@ -5,7 +5,7 @@
     export let assignment, assignments, workers
     
 	let assignmentClass = "",
-    edit = false;
+    method = "";
     const setCompleted = () => {assignmentClass = "container completed"}
     const setUncompleted = () => {assignmentClass = "container uncompleted"}
     const setDeadline = () => {assignmentClass = "container deadline"}
@@ -25,7 +25,7 @@
     }
 
     const editAssignment = (job) => {
-        edit = true;
+        method = "Edit";
     }
     const deleteAssignment = async (job) => {
         let option = confirm(`Are you sure you want to delete this assignment? ${assignment.title}`)
@@ -53,8 +53,8 @@
     $: assignment, setClassName();
 </script>
 
-{#if edit}
-    <EditAssignment bind:assignment bind:edit  bind:workers />
+{#if method == "Edit"}
+    <EditAssignment bind:assignment bind:method  bind:workers />
 {/if}
 
 <div class={assignmentClass}> 
