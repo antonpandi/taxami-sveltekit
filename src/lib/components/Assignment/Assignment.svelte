@@ -10,10 +10,10 @@
     export let assignment, method, task
     
 	let assignmentClass = "";
-    const setCompleted = () => {assignmentClass = "container assignment completed"}
-    const setUncompleted = () => {assignmentClass = "container assignment uncompleted"}
-    const setDeadline = () => {assignmentClass = "container assignment deadline"}
-    const setUnassigned = () => {assignmentClass = "container assignment unassigned"}
+    const setCompleted = () => {assignmentClass = "status completed"}
+    const setUncompleted = () => {assignmentClass = "status uncompleted"}
+    const setDeadline = () => {assignmentClass = "status deadline"}
+    const setUnassigned = () => {assignmentClass = "status unassigned"}
 
     const deadlineMeet = () => {
         let date = new Date();
@@ -75,10 +75,17 @@
 </script>
 
 
-    <div class={assignmentClass}> 
-        <h3>{assignment.title}</h3>
-        <p>{assignment.description}</p>
-        <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
+    <div class="container assignment"> 
+        <div class="flex_container">
+            <div class={assignmentClass}>
+
+            </div>
+            <div>
+                <h3>{assignment.title}</h3>
+                <p>{assignment.description}</p>
+                <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
+            </div>
+        </div>
         <div class="btn_container">
             
             {#if $role == 'WORKER'}
@@ -101,6 +108,18 @@
     </div>
 
 <style>
+
+    .status {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 1rem;
+    }
+    
+	.flex_container{
+		display: flex;
+		align-items: center;
+	}
+
 	.completed {
 		background-color: green;
 	}
