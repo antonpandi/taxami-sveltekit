@@ -1,22 +1,30 @@
 <script>
+	//Components
+	import Building from '$lib/components/Building/Building.svelte';
+	import Assignment  from '$lib/components/Assignment/Assignment.svelte';
+	import EditAssignment from './../Assignment/EditAssignment.svelte';
+	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
 	import { onMount } from 'svelte';
 
 	//Variables
 	import { building_id } from '../../stores/building';
 	import { each } from 'svelte/internal';
 	import { role } from '../../stores/role';
-	import Assignment from '$lib/components/Assignment/Assignment.svelte';
-	import {worker} from '../../stores/workers'
-	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
+
+	let method, task;
+
+
+	$: console.log("Workers: ", workers)
+	$: console.log("Assignments: ", assignments)
 
 	let id;
 	building_id.subscribe((i) => (id = i));
 
+	let workers = getWorkers();
+		let assignments = getAssignments();
+
 	let building,
-		workers,
-		workers_count,
 		worker_email,
-		assignments,
 		assignment_title,
 		assignment_description,
 		assignment_priority,
@@ -25,7 +33,6 @@
 		assignment_estimated_cost,
 		assignment_email;
 
-		$: console.log("Worker",$worker)
 	onMount(async () => {
 		await fetch('https://Mini-axami.antonpandi.repl.co/find/building', {
 			method: 'POST',
@@ -40,12 +47,10 @@
 
 		console.log(building);
 
-		getWorkers();
-		getAssignments();
 	});
 
-	const getWorkers = async () => {
-		await fetch('https://Mini-axami.antonpandi.repl.co/workers/mine', {
+	async function getWorkers(){
+		let response = await fetch('https://Mini-axami.antonpandi.repl.co/workers/mine', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -53,20 +58,16 @@
 				building_id: id
 			})
 		})
-			.then(async (res) => { 
-				workers = await res.json();
-				worker.set(workers)
-				console.log("Workers", workers);
-			})
-			.catch((err) => console.log(err));
-
-		workers_count = workers.length;
-
-		console.log(workers);
-		console.log(workers_count);
+		try {
+				let result = await response.json()
+				console.log(result)
+				return result;
+		} catch (error) {
+			console.log(error)
+		}
 	};
-	const getAssignments = async () => {
-		await fetch('https://Mini-axami.antonpandi.repl.co/assignments/building', {
+	async function getAssignments(){
+		let response = await fetch('https://Mini-axami.antonpandi.repl.co/assignments/building', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -74,8 +75,14 @@
 				building_id: id
 			})
 		})
-			.then(async (res) => (assignments = await res.json()))
-			.catch((err) => console.log(err));
+
+		try {
+				let result = await response.json()
+				console.log(result)
+				return result;
+		} catch (error) {
+			console.log(error)
+		}
 
 	}
 
@@ -143,52 +150,67 @@
 </script>
 
 <h2>Building</h2>
-{#if building}
-	{#if workers_count > 0}
-		<div class="building">
-			<div class="adress building_attrubute">
-				<h4 class="building_info">Adress:</h4>
-				<p class="building_info">{building.adress}</p>
-			</div>
-			<div class="type building_attrubute">
-				<h4 class="building_info">Building Type:</h4>
-				<p class="building_info">{building.type}</p>
-			</div>
-		</div>
+<!-- {#await }
+	
+{:then } 
+	{#each || [] as }
+		
 	{:else}
-		<h4>No Workers Connected To The Building</h4>
-	{/if}
+	{/each}
+	{:catch error}
+	<p>{error.message}</p>
+{/await} -->
+
+{#if building}
+	<div class="building">
+		<div class="adress building_attrubute">
+			<h4 class="building_info">Adress:</h4>
+			<p class="building_info">{building.adress}</p>
+		</div>
+		<div class="type building_attrubute">
+			<h4 class="building_info">Building Type:</h4>
+			<p class="building_info">{building.type}</p>
+		</div>
+	</div>
 {:else}
 	Loading building...
 {/if}
-
-{#if workers}
-	<div id="workers" class="container">
-		<h3>Linked workers</h3>
-		{#each workers as worker}
-			<div class="worker">
-				<h3>{worker.fname} {worker.lname}</h3>
-				<p>{worker.email}</p>
-			</div>
-		{/each}
-	</div>
+{#if method}
+	<EditAssignment bind:assignment={task} bind:method bind:workers/>
 {:else}
-	<p>No workers found</p>
-{/if}
-{#if assignments}
-	<div id="assignments" class="container">
-		<h3>Assignment</h3>
-		{#each assignments as assignment}
-		<!-- {#if !assignment.worker_id} -->
-            <!-- <Assignment bind:assignment /> -->
-            <ClientAssignment bind:assignment bind:assignments bind:workers/>
-		<!-- {/if} -->
-		{/each}
-	</div>
-{:else}
-	<p>No assignment found</p>
-{/if}
+	{#await workers}
+		<p>Waiting on buildings...</p>
+	{:then workers} 
+		<div id="workers" class="container">
+			<h3>Linked workers</h3>
+			{#each workers || [] as worker}
+				<div class="worker">
+					<h3>{worker.fname} {worker.lname}</h3>
+					<p>{worker.email}</p>
+				</div>
+			{:else}
+			<p>There are no workers linked to this building</p>
+			{/each}
+		</div>
+	{:catch error}
+		<p>{error.message}</p>
+	{/await}
 
+
+
+	{#await assignments}
+		<p>Waiting on assignments</p>
+	{:then assignments} 
+		{#each assignments || [] as assignment}
+			<Assignment bind:assignment bind:method bind:task/>
+		{:else}
+			<p>There are no assignments available for this building</p>
+		{/each}
+		{:catch error}
+		<p>{error.message}</p>
+	{/await}
+{/if}
+<!-- 
 <div class="createAssignment container">
 	<form on:submit|preventDefault={addAssignment}>
 		<h3>Create Assignment</h3>
@@ -239,7 +261,7 @@
 		<input bind:value={worker_email} type="email" name="email" placeholder="email" />
 		<button type="submit" on:click|preventDefault={linkWorker}>Link Worker</button>
 	</form>
-</div>
+</div> -->
 
 <style>
 	.worker {

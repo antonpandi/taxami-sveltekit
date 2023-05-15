@@ -49,6 +49,8 @@
     }
     const editAssignment = (job) => {
         console.log("Role", job)
+        method = "Edit";
+        task = job;
     }
     const deleteAssignment = async (job) => {
         let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)

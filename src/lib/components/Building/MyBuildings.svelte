@@ -5,9 +5,12 @@
 	import { page } from '../../stores/page';
 	import { role } from '../../stores/role';
 
-	let buildings;
+	let buildings = getBuildings();
 
-	onMount(async () => {
+	// onMount(async () => {
+	// });
+
+	async function getBuildings(){
 		try {
 			console.log("trying to get buildings")
 			const response = await fetch('https://Mini-axami.antonpandi.repl.co/buildings/mine', {
@@ -15,13 +18,15 @@
 				credentials: 'include'
 			});
 
-			buildings = await response.json();
+			return await response.json();
 
 			console.log(buildings);
+
+			
 		} catch (error) {
 			console.error(error);
 		}
-	});
+	}
 
 	const selectBuilding = (id) => {
 		page.set('building');
@@ -36,7 +41,35 @@
 	};
 </script>
 
-{#if buildings}
+
+{#await buildings}
+	<p>Waiting on buildings...</p>
+{:then buildings} 
+	<div id="buildings">
+		{#each buildings as building}
+			<div class="building_container container">
+				<div class="building">
+					<a
+						href="/"
+						on:click|preventDefault={() => {
+							selectBuilding(building.id);
+						}}
+					>
+						<h3 class="adress">{building.adress}</h3>
+					</a>
+					<p>{building.type}</p>
+				</div>
+				<button class="btn" on:click={() => removeBuilding(building)}>X</button>
+			</div>
+		{/each}
+	</div>
+{:catch error}
+	<p>{error.message}</p>
+{/await}
+
+
+
+<!-- {#if buildings}
 	<div id="buildings">
 		{#each buildings as building}
 			<div class="building_container container">
@@ -57,7 +90,7 @@
 	</div>
 {:else}
 	<h4>You have no registered buildings</h4>
-{/if}
+{/if} -->
 
 <style>
 	.adress {

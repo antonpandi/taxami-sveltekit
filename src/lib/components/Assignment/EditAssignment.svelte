@@ -129,11 +129,25 @@
 		<select name="cars" id="cars">
 			{#if workers}
 			<option on:click={setAssignmentId} value={null} selected>No worker</option>
-			{#each workers as worker}
-					<option  on:click={setAssignmentId} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
+			{#await workers}
+			<option on:click={setAssignmentId} value={null}>Loading workers</option>
+			{:then workers} 
+				{#each workers as worker}
+				<option  on:click={setAssignmentId} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
 				{/each}
+			{/await}
 			{/if}
 			
+
+
+
+
+			
+	
+
+
+
+
 		</select>
 		<hr>
 		<div class="btn_container">
