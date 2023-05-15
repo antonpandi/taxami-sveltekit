@@ -4,15 +4,13 @@
 	//Variables
 	import { building_id } from '../../stores/building';
 	import { each } from 'svelte/internal';
-	import { userRole } from '../../stores/auth';
+	import { role } from '../../stores/role';
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import {worker} from '../../stores/workers'
 	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
 
-	let id,
-	role = '';
+	let id;
 	building_id.subscribe((i) => (id = i));
-	userRole.subscribe((r) => (role = r));
 
 	let building,
 		workers,

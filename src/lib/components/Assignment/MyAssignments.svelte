@@ -1,9 +1,11 @@
 <script>
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import { onMount } from "svelte";
+	import EditAssignment from './EditAssignment.svelte';
+	import { bind } from 'svelte/internal';
 
     //variables
-    let assignments;
+    let assignments, task, method;
 
     onMount(async ()=>{
         
@@ -18,9 +20,12 @@
     })
 </script>
 
-
-{#if assignments}
-	{#each assignments as assignment}
-		<Assignment bind:assignment/>
-	{/each}
+{#if method}
+    <EditAssignment bind:assignment={task} bind:method />
+{:else}
+	{#if assignments}
+		{#each assignments as assignment}
+		<Assignment bind:assignment bind:method bind:task/>
+		{/each}
+	{/if}
 {/if}

@@ -1,4 +1,5 @@
 <script>
+	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import { onMount } from "svelte";
 
 
@@ -16,7 +17,8 @@
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
 			body: JSON.stringify({
-				assignment: assignment
+				assignment: assignment,
+				method: method
 			})
 		})
 			.then((res) => console.log(res))
@@ -92,11 +94,15 @@
 </script>
 
 
-<div class={assignment}> 
+<div class="assignment"> 
+	<h2>{method} Assignment</h2>
     <!-- <div class="btn container">
         <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
         <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
-    </div> --><h3>{method} Assignment </h3>
+	
+    </div> -->
+	{#if method == "Edit" || method == "Create"}
+	<h3>{method} Assignment </h3>
 		<h4>Title</h4>
 		<input bind:value={assignment.title} type="text" name="title" placeholder="Title" /> 
 		<h4>Description</h4>
@@ -119,10 +125,6 @@
 		</div>
 		<h4>Deadline {assignment.deadline}</h4>
 		<input bind:value={assignment.deadline_date} type="date" name="date" id="" />
-		<h4>Estimated Cost</h4>
-		<input bind:value={assignment.estimated_cost} type="text" name="setAmount" placeholder="Amount"  />
-		<h4>Estimated Time</h4>
-		<input bind:value={assignment.estimated_time} type="text" name="setTime" placeholder="Time"  />
 		<h4>Email</h4>
 		<select name="cars" id="cars">
 			{#if workers}
@@ -133,10 +135,43 @@
 			{/if}
 			
 		</select>
-		{#if method == "Create"}
-			<button type="submit">Add assignment</button>
-		{:else if method == "Edit"}
-			<button on:click={confirmEdit}> Confirm</button>
+		<hr>
+		<div class="btn_container">
+			{#if method == "Create"}
+				<button type="submit">Add assignment</button>
+			{:else if method == "Edit"}
+				<button on:click={confirmEdit}> Confirm</button>
+			{/if}
+			<button on:click={() => method = ""}> Cancel</button>
+		</div>
+	{:else}
+		<h4>{assignment.title}</h4>
+		<br>
+		<h4>{assignment.description}</h4>
+		<hr>
+		<h4>{assignment.deadline}</h4>
+		{#if method == "Complete"}
+			<h4>Total cost</h4>
+			<input bind:value={assignment.total_cost} type="number" name="Total_cost" placeholder="Total Cost">
+			<h4>Total Time</h4>
+			<input bind:value={assignment.total_time} type="time" name="Total_time" placeholder="Total Time">
+		{:else if method == "Take On Task"}
+			<h4>Estimated Cost</h4>
+			<input bind:value={assignment.estimated_cost} type="text" name="setAmount" placeholder="Amount"  />
+			<h4>Estimated Time</h4>
+			<input bind:value={assignment.estimated_time} type="time" name="setTime" placeholder="Time"  />
 		{/if}
-		<button on:click={() => method = ""}> Cancel</button>
+		<div class="btn container">
+			<button on:click={confirmEdit} class="btn">{method}</button>
+			<button on:click={()=> method = ""} class="btn">Cancel</button>
+		</div>
+	{/if}
+
 </div>
+
+<style>
+	.assignment{
+		padding: 1rem;
+		border: 2px solid black;
+	}
+</style>

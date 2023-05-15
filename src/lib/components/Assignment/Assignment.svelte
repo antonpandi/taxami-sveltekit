@@ -4,19 +4,16 @@
 	
     
     //Stores
-	import { userRole } from "../../stores/auth";
-    
-    let role = "";
-    userRole.subscribe((r)=>role=r)
+	import { role } from "../../stores/role";
     
 
-    export let assignment
+    export let assignment, method, task
     
 	let assignmentClass = "";
-    const setCompleted = () => {assignmentClass = "container completed"}
-    const setUncompleted = () => {assignmentClass = "container uncompleted"}
-    const setDeadline = () => {assignmentClass = "container deadline"}
-    const setUnassigned = () => {assignmentClass = "container unassigned"}
+    const setCompleted = () => {assignmentClass = "container assignment completed"}
+    const setUncompleted = () => {assignmentClass = "container assignment uncompleted"}
+    const setDeadline = () => {assignmentClass = "container assignment deadline"}
+    const setUnassigned = () => {assignmentClass = "container assignment unassigned"}
 
     const deadlineMeet = () => {
         let date = new Date();
@@ -30,16 +27,30 @@
         else if(deadlineMeet()) setDeadline()
         else setUnassigned()
     }
-    const takeOnAssignment = (task) => {
-        console.log("Take On Assignment", task)
+    const takeOnAssignment = (job) => {
+        console.log("Take On Assignment", job)
+        method = "Take On Task"
+        task = job
     }
-    const dropAssignment = (task) => {
-        console.log("Drop Assignment", task)
+    const dropAssignment = (job) => {
+        console.log("Drop Assignment", job)
+        method = "Drop Task"
+        task = job
     }
-    const editAssignment = (task) => {
-        console.log("Role", task)
+    const completeAssignment = (job) => {
+        console.log("Complete Assignment", job)
+        method = "Complete"
+        task = job
     }
-    const deleteAssignment = async (task) => {
+    const uncompleteAssignment = (job) => {
+        console.log("Complete Assignment", job)
+        method = "Uncomplete"
+        task = job
+    }
+    const editAssignment = (job) => {
+        console.log("Role", job)
+    }
+    const deleteAssignment = async (job) => {
         let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
         console.log(option)
         if(option){
@@ -61,26 +72,31 @@
     $: assignment, setClassName();
 </script>
 
-<div class={assignmentClass}> 
-    <h3>{assignment.title}</h3>
-    <p>{assignment.description}</p>
-    <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
-    <div class="btn container">
-        
-        {#if role == 'WORKER'}
-            {#if !assignment.worker_id}
-                <button on:click={()=>{takeOnAssignment(assignment)}} class="btn"> Take on Assignment </button>
-            {:else}
-                <button on:click={()=>{dropAssignment(assignment)}} class="btn"> Drop Assignment </button>
-            {/if}
-        {:else}
-            <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
-            <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
-        {/if}
-        
-    </div>
-</div>
 
+    <div class={assignmentClass}> 
+        <h3>{assignment.title}</h3>
+        <p>{assignment.description}</p>
+        <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
+        <div class="btn_container">
+            
+            {#if $role == 'WORKER'}
+                {#if !assignment.worker_id}
+                    <button on:click={()=>{takeOnAssignment(assignment)}} class="btn"> Take on Assignment </button>
+                {:else}
+                    {#if assignment.completed}
+                        <button on:click={()=>{uncompleteAssignment(assignment)}} class="btn"> Uncomplete Assignment </button>
+                    {:else}
+                        <button on:click={()=>{completeAssignment(assignment)}} class="btn"> Complete Assignment </button>
+                        <button on:click={()=>{dropAssignment(assignment)}} class="btn"> Drop Assignment </button>
+                    {/if}
+                {/if}
+            {:else}
+                <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
+                <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
+            {/if}
+            
+        </div>
+    </div>
 
 <style>
 	.completed {
@@ -95,10 +111,5 @@
     .deadline {
         background-color: red;
     }
-    .btn{
-        width: 100%;
-    }
-    .btn.container {
-        display: flex;
-    }
+    
 </style>

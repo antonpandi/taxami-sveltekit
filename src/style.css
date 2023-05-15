@@ -1,0 +1,29 @@
+
+button, .btn{
+    height: 2rem;
+}
+
+.btn{
+    width: 100%;
+}
+
+.btn.container {
+    display: flex;
+}
+
+.container{
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+.assignment {
+    border: 2px solid black;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.btn_container{
+    display: flex;
+    justify-content: space-evenly   ;
+}

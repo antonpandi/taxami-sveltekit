@@ -2,15 +2,12 @@
 	import MenuClient from './MenuClient.svelte';
 	import MenuWorker from './MenuWorker.svelte';
 
-	import { userRole } from '../../stores/auth';
+	import { role } from '../../stores/role';
 
-	let role = '';
-
-	userRole.subscribe((r) => (role = r));
 </script>
 
-{#if role == 'ADMIN' || role == 'CLIENT'}
+{#if $role == 'ADMIN' || $role == 'CLIENT'}
 	<MenuClient />
-{:else if role == 'WORKER'}
+{:else if $role == 'WORKER'}
 	<MenuWorker />
 {/if}

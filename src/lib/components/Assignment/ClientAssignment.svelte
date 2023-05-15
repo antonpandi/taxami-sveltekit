@@ -6,10 +6,10 @@
     
 	let assignmentClass = "",
     method = "";
-    const setCompleted = () => {assignmentClass = "container completed"}
-    const setUncompleted = () => {assignmentClass = "container uncompleted"}
-    const setDeadline = () => {assignmentClass = "container deadline"}
-    const setUnassigned = () => {assignmentClass = "container unassigned"}
+    const setCompleted = () => {assignmentClass = "container assignment completed"}
+    const setUncompleted = () => {assignmentClass = "container assignment uncompleted"}
+    const setDeadline = () => {assignmentClass = "container assignment deadline"}
+    const setUnassigned = () => {assignmentClass = "container assignment unassigned"}
 
     const deadlineMeet = () => {
         let date = new Date();
@@ -61,7 +61,7 @@
     <h3>{assignment.title}</h3>
     <p>{assignment.description}</p>
     <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
-    <div class="btn container">
+    <div class="btn_container container">
         <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
         <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
     </div>
@@ -84,7 +84,7 @@
     .btn{
         width: 100%;
     }
-    .btn.container {
+    .btn_container {
         display: flex;
     }
 </style>
