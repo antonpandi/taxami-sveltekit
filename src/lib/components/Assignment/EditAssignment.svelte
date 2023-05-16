@@ -173,6 +173,8 @@
 			<h4>Estimated Time</h4>
 			<input bind:value={assignment.estimated_time} type="time" name="setTime" placeholder="Time"  />
 		{/if}
+		<hr>
+		<textarea bind:value={assignment.comment} type="text" name="comment" placeholder="Comment" cols="30" rows="10"></textarea>
 		<div class="btn container">
 			<button on:click={confirmEdit} class="btn">{method}</button>
 			<button on:click={()=> method = ""} class="btn red">Cancel</button>
@@ -189,7 +191,7 @@
 	select{
 		color: black;
 	}
-	option{
+	option, textarea{
 		color: black;
 	}
 </style>

@@ -1,5 +1,6 @@
 
 :root{
+    --dodgerblue: #005A9C;
     --blue: rgba(0,31,51,.9);
     --cyan: #1ba098;
     --gray: #5c6370;
@@ -35,10 +36,12 @@ button, .btn{
     background: var(--gray);
     border-color: var(--gray);
     min-width: 5rem;
+    cursor: pointer;
 }
 
 button:hover, .btn:hover{
     background-color: var(--lightgray);
+    cursor: pointer;
 }
 
 input{
@@ -46,9 +49,14 @@ input{
 }
 
 .btn{
+    cursor: pointer;
     width: 100%;
     background: var(--gray);
     border-color: var(--gray);
+}
+.btn:hover{
+    background: var(--dodgerblue);
+    border-color: var(--dodgerblue);
 }
 .btn.red:hover{
     background: var(--cancel) ;
@@ -61,6 +69,7 @@ input{
 
 .btn.container {
     display: flex;
+    margin: auto;
 }
 
 .container, form{

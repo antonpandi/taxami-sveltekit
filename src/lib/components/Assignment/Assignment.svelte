@@ -72,6 +72,7 @@
                 <h3>{assignment.title}</h3>
                 <p>{assignment.description}</p>
                 <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
+                <p>{assignment.comment}</p>
             </div>
         </div>
         <div class="btn_container">
