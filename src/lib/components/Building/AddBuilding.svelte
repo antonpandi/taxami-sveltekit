@@ -31,14 +31,19 @@
 
 <form on:submit|preventDefault={submit}>
 	<h2>New Building</h2>
-	<h4>House</h4>
-	<input on:change={setType} type="radio" name="type" value="house" />
-	<h4>Appartment</h4>
-	<input on:change={setType} type="radio" name="type" value="apartment" />
+	<div class="flex_container">
+		<div>
+			<h4>House</h4>
+			<input on:change={setType} type="radio" name="type" value="house" />
+		</div>
+		<div>
+			<h4>Appartment</h4>
+			<input on:change={setType} type="radio" name="type" value="apartment" />
+		</div>
+	</div>
+	<br>
 	<h4>Adress</h4>
 	<input bind:value={adress} type="text" name="adress" placeholder="Adress" />
 	<hr />
-	{adress}
-	{type}
 	<button type="submit">Add Building</button>
 </form>

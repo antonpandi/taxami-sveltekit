@@ -20,8 +20,9 @@
 	let id;
 	building_id.subscribe((i) => (id = i));
 
-	let workers = getWorkers();
-		let assignments = getAssignments();
+	let workers = getWorkers(),
+	assignments = getAssignments(),
+	linkCheck = false;
 
 	let building,
 		worker_email,
@@ -162,7 +163,7 @@
 {/await} -->
 
 {#if building}
-	<div class="building">
+	<div class="building container">
 		<div class="adress building_attrubute">
 			<h4 class="building_info">Adress:</h4>
 			<p class="building_info">{building.adress}</p>
@@ -182,22 +183,40 @@
 		<p>Waiting on buildings...</p>
 	{:then workers} 
 		<div id="workers" class="container">
-			<h3>Linked workers</h3>
-			{#each workers || [] as worker}
-				<div class="worker">
-					<h3>{worker.fname} {worker.lname}</h3>
-					<p>{worker.email}</p>
-				</div>
-			{:else}
-			<p>There are no workers linked to this building</p>
-			{/each}
+					{#if linkCheck}
+						<div class="linkWorker container">
+							<h3>Link worker</h3>
+							<form>
+								<h4>Email</h4>
+								<input bind:value={worker_email} type="email" name="email" placeholder="email" />
+								<hr>
+								<div class="flex_container">
+									<button class="btn" type="submit" on:click|preventDefault={linkWorker}>Link Worker</button>
+									<button class="btn red" on:click={() => linkCheck = false}>Cancel</button>
+								</div>
+							</form>
+						</div>
+					{:else}
+						<div class="flex_container">
+							<h3>Linked workers</h3>
+							<button on:click={() => linkCheck = true}>Link worker</button>
+						</div>
+						{#each workers || [] as worker}
+							<div class="worker container">
+								<h3>{worker.fname} {worker.lname}</h3>
+								<p>{worker.email}</p>
+							</div>
+						{:else}
+						<p>There are no workers linked to this building</p>
+						{/each}
+					{/if}
 		</div>
 	{:catch error}
 		<p>{error.message}</p>
 	{/await}
 
 
-
+<div class="container">
 	{#await assignments}
 		<p>Waiting on assignments</p>
 	{:then assignments} 
@@ -209,6 +228,7 @@
 		{:catch error}
 		<p>{error.message}</p>
 	{/await}
+</div>
 {/if}
 <!-- 
 <div class="createAssignment container">
@@ -254,20 +274,13 @@
 	</form>
 </div>
 
-<div class="linkWorker container">
-	<h3>Link worker</h3>
-	<form>
-		<h4>Email</h4>
-		<input bind:value={worker_email} type="email" name="email" placeholder="email" />
-		<button type="submit" on:click|preventDefault={linkWorker}>Link Worker</button>
-	</form>
-</div> -->
+ -->
 
 <style>
 	.worker {
 		display: flex;
 		justify-content: space-evenly;
-		background-color: #f9f9f9;
+		background-color: var(--gray);
 	}
 	.container {
 		border: 1px solid black;
@@ -288,6 +301,5 @@
 	.radiomenu {
 		display: flex;
 	}
-
 	
 </style>

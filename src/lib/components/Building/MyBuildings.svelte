@@ -1,11 +1,13 @@
 <script>
+	import { bind } from 'svelte/internal';
+	import EditBuilding from './EditBuilding.svelte';
 	import { onMount } from 'svelte';
 	import Building from './Building.svelte';
 	import { building_id } from '../../stores/building';
 	import { page } from '../../stores/page';
 	import { role } from '../../stores/role';
 
-	let buildings = getBuildings();
+	let buildings = getBuildings(), method, selected;
 
 	// onMount(async () => {
 	// });
@@ -39,58 +41,46 @@
 			console.log('Building deleted: ', building);
 		} else console.log('Deletion caceled');
 	};
+	const setBuilding = (temp) => {
+		selected = temp;
+		method = "Edit"
+	};
 </script>
 
-
-{#await buildings}
-	<p>Waiting on buildings...</p>
-{:then buildings} 
-	<div id="buildings">
-		{#each buildings as building}
-			<div class="building_container container">
-				<div class="building">
-					<a
-						href="/"
-						on:click|preventDefault={() => {
-							selectBuilding(building.id);
-						}}
-					>
-						<h3 class="adress">{building.adress}</h3>
-					</a>
-					<p>{building.type}</p>
-				</div>
-				<button class="btn" on:click={() => removeBuilding(building)}>X</button>
-			</div>
-		{/each}
-	</div>
-{:catch error}
-	<p>{error.message}</p>
-{/await}
-
-
-
-<!-- {#if buildings}
-	<div id="buildings">
-		{#each buildings as building}
-			<div class="building_container container">
-				<div class="building">
-					<a
-						href="/"
-						on:click|preventDefault={() => {
-							selectBuilding(building.id);
-						}}
-					>
-						<h3 class="adress">{building.adress}</h3>
-					</a>
-					<p>{building.type}</p>
-				</div>
-				<button class="btn" on:click={() => removeBuilding(building)}>X</button>
-			</div>
-		{/each}
-	</div>
+{#if method == "Edit"}
+	
+	<EditBuilding bind:building={selected} bind:method />
 {:else}
-	<h4>You have no registered buildings</h4>
-{/if} -->
+	{#await buildings}
+		<p>Waiting on buildings...</p>
+	{:then buildings} 
+		<div id="buildings">
+			{#each buildings as building}
+				<div class="building_container container">
+					<div class="building">
+						<a
+							href="/"
+							on:click|preventDefault={() => {
+								selectBuilding(building.id);
+							}}
+						>
+							<h3 class="adress">{building.adress}</h3>
+						</a>
+						<p>{building.type}</p>
+					</div>
+					<div class="flex_container">
+						<button on:click={() => setBuilding(building)} class="btn"> <i class="fa-solid fa-pen"></i> </button>
+						<button on:click={() => removeBuilding(building)}  class="btn red" ><i class=" fa fa-trash"></i></button>
+					</div>
+				</div>
+			{/each}
+		</div>
+	{:catch error}
+		<p>{error.message}</p>
+	{/await}
+{/if}
+
+
 
 <style>
 	.adress {
@@ -110,5 +100,9 @@
 
 	.btn {
 		width: 10%;
+	}
+
+	.flex_container {
+		flex-direction: column;
 	}
 </style>
