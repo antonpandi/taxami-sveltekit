@@ -74,7 +74,7 @@
 	<div id="nav-container" class={navcontainerclass}>
 		<!-- <h1>Header</h1> -->
 		<div id="menu" class={menuclass}>
-			<li class="nav"><a href="#" class="is-active">Home</a></li>
+			<li class="nav"><a on:click={setPage} class="is-active">Home</a></li>
 			{#if $role == "WORKER"}
 					<li class="nav"><a on:click={buildings}>Buildings</a></li>
 					<li class="nav"><a on:click={availableAssignments}>Available Jobs</a></li>

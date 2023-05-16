@@ -10,10 +10,10 @@
     export let assignment, method, task
     
 	let assignmentClass = "";
-    const setCompleted = () => {assignmentClass = "status completed"}
-    const setUncompleted = () => {assignmentClass = "status uncompleted"}
-    const setDeadline = () => {assignmentClass = "status deadline"}
-    const setUnassigned = () => {assignmentClass = "status unassigned"}
+    const setCompleted = () => { assignmentClass = assignment.priority ? "status completed priority" :"status completed" }
+    const setUncompleted = () => {assignmentClass = assignment.priority ? "status uncompleted priority" : "status uncompleted"}
+    const setDeadline = () => {assignmentClass = assignment.priority ? "status deadline priority" : "status deadline"}
+    const setUnassigned = () => {assignmentClass = assignment.priority ? "status unassigned priority" : "status unassigned"}
 
     const deadlineMeet = () => {
         let date = new Date();
@@ -120,6 +120,10 @@
 	}
     .deadline {
         background-color: red;
+    }
+
+    .priority{
+        border: 5px solid brown;
     }
     
 </style>
