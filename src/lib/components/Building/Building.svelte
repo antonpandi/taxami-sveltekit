@@ -148,6 +148,11 @@
 			.then(getWorkers())
 			.catch((err) => console.log(err));
 	};
+
+	const createAssignment = () => {
+		method = "Create";
+		task = {building_id:building.id}
+	}
 </script>
 
 <h2>Building</h2>
@@ -217,14 +222,17 @@
 
 
 <div class="container">
+	<button on:click={createAssignment}>Add Assignment</button>
 	{#await assignments}
 		<p>Waiting on assignments</p>
 	{:then assignments} 
+	<div class="assignments">
 		{#each assignments || [] as assignment}
 			<Assignment bind:assignment bind:method bind:task/>
 		{:else}
 			<p>There are no assignments available for this building</p>
 		{/each}
+	</div>
 		{:catch error}
 		<p>{error.message}</p>
 	{/await}

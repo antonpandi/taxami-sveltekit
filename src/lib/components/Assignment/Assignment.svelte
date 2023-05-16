@@ -101,7 +101,7 @@
                 {/if}
             {:else}
                 <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
-                <button on:click={() => deleteAssignment(assignment)} class="btn">Delete</button>
+                <button on:click={() => deleteAssignment(assignment)} class="btn red">Delete</button>
             {/if}
             
         </div>

@@ -29,50 +29,24 @@
     $: console.log("Assignment", assignment)
     
 
-	const addAssignment = () => {
-		fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
+	const addAssignment = async () => {
+		await fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
 			body: JSON.stringify({
-				building_id : building.id,
-				assignment_title,
-				assignment_description,
-				assignment_email,
-				assignment_priority,
-				assignment_deadline,
-				assignment_estimated_time,
-				assignment_estimated_cost,
-
+				assignment
 			})
 		})
 			.then()
 			.catch((err) => console.log(err));
 	};
 
-	const setPriority = (ev) => {
-		assignment_priority = ev.target.value;
-		console.log(assignment_priority);
-	};
-
-	const setDeadline = (ev) => {
-		assignment_deadline = ev.target.value;
-		console.log(assignment_deadline);
-	};
-	const setAmount = (ev) => {
-		assignment_estimated_cost = ev.target.value;
-		console.log(assignment_estimated_cost);
-	};
-	const setTime = (ev) => {
-		assignment_estimated_time = ev.target.value;
-		console.log(assignment_estimated_time);
-	};
 	
 	const setAssignmentId = (ev) => {
 		let el = ev.target;
-		let id = el.value;
-		assignment_email = el.value;
-		console.log(assignment_email);
+		assignment.worker_id = el.value;
+		console.log(assignment.worker_id);
 	};
 
 	const linkWorker = (ev) => {
@@ -123,10 +97,10 @@
 				<input bind:group={assignment.priority} type="radio" name="priority" value={0} />
 			</div>
 		</div>
-		<h4>Deadline {assignment.deadline}</h4>
+		<h4>Deadline</h4>
 		<input bind:value={assignment.deadline_date} type="date" name="date" id="" />
 		<h4>Email</h4>
-		<select name="cars" id="cars">
+		<select name="workers" id="workers">
 			{#if workers}
 			<option on:click={setAssignmentId} value={null} selected>No worker</option>
 			{#await workers}
@@ -137,24 +111,13 @@
 				{/each}
 			{/await}
 			{/if}
-			
-
-
-
-
-			
-	
-
-
-
-
 		</select>
 		<hr>
 		<div class="btn_container">
 			{#if method == "Create"}
-				<button type="submit">Add assignment</button>
+				<button on:click={addAssignment} class="btn" type="submit">Add assignment</button>
 			{:else if method == "Edit"}
-				<button on:click={confirmEdit}> Confirm</button>
+				<button class="btn" on:click={confirmEdit}> Confirm</button>
 			{/if}
 			<button on:click={() => method = ""} class="btn red" > Cancel</button>
 		</div>
@@ -187,5 +150,11 @@
 	.assignment{
 		padding: 1rem;
 		border: 2px solid black;
+	}
+	select{
+		color: black;
+	}
+	option{
+		color: black;
 	}
 </style>
