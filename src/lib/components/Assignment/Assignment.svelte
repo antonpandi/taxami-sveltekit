@@ -5,6 +5,8 @@
     
     //Stores
 	import { role } from "../../stores/role";
+	import { user } from "../../stores/user";
+    
     
 
     export let assignment, method, task
@@ -80,7 +82,7 @@
             {#if $role == 'WORKER'}
                 {#if !assignment.worker_id}
                     <button on:click={()=>{takeOnAssignment(assignment)}} class="btn"> Take on Assignment </button>
-                {:else}
+                {:else if assignment.worker_id == $user.id}
                     {#if assignment.completed}
                         <button on:click={()=>{uncompleteAssignment(assignment)}} class="btn"> Uncomplete Assignment </button>
                     {:else}
@@ -88,7 +90,7 @@
                         <button on:click={()=>{dropAssignment(assignment)}} class="btn"> Drop Assignment </button>
                     {/if}
                 {/if}
-            {:else}
+            {:else if $role == "ADMIN" || $role == "CLIENT"}
                 <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
                 <button on:click={() => deleteAssignment(assignment)} class="btn red">Delete</button>
             {/if}

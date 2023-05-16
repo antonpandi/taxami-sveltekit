@@ -4,6 +4,7 @@
 	import AvailableAssignments from '$lib/components/Assignment/AvailableAssignments.svelte';
 	import MyAssignments from '$lib/components/Assignment/MyAssignments.svelte';
 	import Building from '$lib/components/Building/Building.svelte';
+	import Profile from '$lib/components/Profile/Profile.svelte';
 
 
 	//Variables
@@ -25,11 +26,7 @@
 
 <div class="container">
 	{#if $page == 'home'}
-		<div id="menu">
-			<button on:click={buildings}>Buildings</button>
-			<button on:click={availableAssignments}>Available Jobs</button>
-			<button on:click={myAssignments}>My Jobs</button>
-		</div>
+		<Profile />
 	{/if}
 	
 	{#if $page == 'my_buildings'}

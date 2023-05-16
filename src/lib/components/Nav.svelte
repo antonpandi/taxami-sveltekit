@@ -4,6 +4,7 @@
 	import { page } from '../stores/page';
 	import { goto } from '$app/navigation';
 	import { role } from '../stores/role';
+	import { user } from '../stores/user';
 
 	let swap = true,
 	navcontainerclass = "container",
@@ -17,6 +18,9 @@
 			credentials: 'include'
 		});
 		authenticated.set(false);
+		role.set(false);
+		page.set(false);
+		user.set(false);
 		
 		await goto('/login');
 	};
@@ -79,7 +83,7 @@
 					<li class="nav"><a on:click={buildings}>Buildings</a></li>
 					<li class="nav"><a on:click={availableAssignments}>Available Jobs</a></li>
 					<li class="nav"><a on:click={myAssignments}>My Jobs</a></li> 	
-				{:else}
+				{:else if $role == "ADMIN" || $role == "CLIENT"}
 					<li class="nav"><a on:click={myBuildings}>My Buildings</a></li>
 					<li class="nav"><a on:click={addBuilding}>Add New Building</a></li>	
 			{/if}
