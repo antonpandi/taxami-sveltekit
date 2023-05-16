@@ -35,11 +35,34 @@
 		building_id.set(id);
 	};
 
-	const removeBuilding = (building) => {
+	const removeBuilding = async (building) => {
 		let text = `Are you sure you want to remove the building \n ${building.adress}`;
 		if (confirm(text)) {
 			console.log('Building deleted: ', building);
-		} else console.log('Deletion caceled');
+			
+			const response = await fetch('https://Mini-axami.antonpandi.repl.co/remove/buildings', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include',
+				body: JSON.stringify({
+					building
+				})
+			});
+			
+			
+			try{
+				buildings.then((result) => { buildings = result.filter((r) => r.id != building.id)})
+			}catch(error) {
+				buildings = buildings.filter((r) => r.id != building.id)
+				console.log(buildings)
+			}finally{
+				method = null
+			}
+			
+
+
+
+		} else console.log('Deletion canceled');
 	};
 	const setBuilding = (temp) => {
 		selected = temp;

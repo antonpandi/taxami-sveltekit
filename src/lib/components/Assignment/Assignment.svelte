@@ -53,18 +53,8 @@
         task = job;
     }
     const deleteAssignment = async (job) => {
-        let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
-        console.log(option)
-        if(option){
-            await fetch('https://Mini-axami.antonpandi.repl.co/remove/assignment', {
-			method: 'DELETE',
-			headers: { 'Content-Type': 'application/json' },
-			credentials: 'include',
-			body: JSON.stringify({
-				id: job.id
-			})
-		})
-        }
+        method = "Delete";
+        task = job;
     }
     
 

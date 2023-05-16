@@ -4,11 +4,36 @@
 	import MyAssignments from './MyAssignments.svelte';
 
 
-    export let assignment, method, workers
+    export let assignments, assignment, method, workers
 
-    onMount(() => {
+    onMount(async () => {
+
+		if(method == "Delete"){
+			let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
+			console.log(option)
+			if(option){
+				await fetch('https://Mini-axami.antonpandi.repl.co/remove/assignment', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include',
+				body: JSON.stringify({
+					id: assignment.id
+				})
+			})
+
+			try{
+				assignments.then((result) => { assignments = result.filter((r) => r.id != assignment.id)})
+			}catch(error) {
+				assignments = assignments.filter((r) => r.id != assignment.id)
+				console.log(assignments)
+			}finally{
+				method = null
+			}
+		}
+
         console.log("Assignment", assignment);
-        assignment.deadline_date = assignment.deadline.split('T')[0]
+        assignment.deadline_date = assignment.deadline.split('T')[0];
+		}
     })
 	
     const confirmEdit = async () => { 
@@ -31,7 +56,8 @@
     
 
 	const addAssignment = async () => {
-		await fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
+
+		let response = await fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -39,9 +65,17 @@
 				assignment
 			})
 		})
-			.then(async(res) => assignments.unshift(await res.json()))
-			.then(() => method = null)
-			.catch((err) => console.log(err));
+		
+		try{
+			assignments.then(async (result) => { assignments = [...result, await response.json()]})
+		}catch(error) {
+			let result = await response.json();
+			assignments.push(result)
+			console.log(assignments)
+		}finally{
+			method = null
+		}
+
 	};
 
 	
@@ -103,7 +137,7 @@
 		<h4>Email</h4>
 		<select name="workers" id="workers">
 			{#if workers}
-			<option on:click={setAssignmentId} value={null} selected>No worker</option>
+			<option on:click={setAssignmentId(null)} value={null} selected>No worker</option>
 			{#await workers}
 			<option on:click={setAssignmentId} value={null}>Loading workers</option>
 			{:then workers} 

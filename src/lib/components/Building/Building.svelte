@@ -28,7 +28,7 @@
 		worker_email,
 		assignment_title,
 		assignment_description,
-		assignment_priority,
+		assignment_priority, 
 		assignment_deadline,
 		assignment_estimated_time,
 		assignment_estimated_cost,
@@ -182,7 +182,7 @@
 	Loading building...
 {/if}
 {#if method}
-	<EditAssignment bind:assignment={task} bind:method bind:workers/>
+	<EditAssignment bind:assignment={task} bind:method bind:workers bind:assignments/>
 {:else}
 	{#await workers}
 		<p>Waiting on buildings...</p>
