@@ -19,7 +19,20 @@
     function cancel(){
         method = null;
     }
-    function saveProfile() {
+    async function saveProfile() {
+
+        let opt = profile.role == "WORKER" ? "worker" : "client";
+
+        await fetch(`https://Mini-axami.antonpandi.repl.co/edit/${opt}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
+			body: JSON.stringify({
+				user:profile
+			})
+		})
+
+
 
         cancel();
     }
