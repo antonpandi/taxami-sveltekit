@@ -5,27 +5,34 @@
 	import { bind } from 'svelte/internal';
 
     //variables
-    let assignments, task, method;
+    let assignments = getTasks(), task, method;
 
-    onMount(async ()=>{
+    async function getTasks(){
         
 			console.log("trying to get buildings")
-			await fetch('https://Mini-axami.antonpandi.repl.co/assignments/worker', {
+			let response = await fetch('https://Mini-axami.antonpandi.repl.co/assignments/worker', {
 				method: 'GET',
 				credentials: 'include'
 			})
-			.then(async (res) => assignments = await res.json())
-			.catch((err) => console.log(err));
+			let result = await response.json();
+			console.log("Result: ", result);
+			return result;
         
-    })
+    }
 </script>
 
 {#if method}
     <EditAssignment bind:assignment={task} bind:method />
 {:else}
-	{#if assignments}
-		{#each assignments as assignment}
-		<Assignment bind:assignment bind:method bind:task/>
+	{#await assignments}
+		<p>Waiting on assignments</p>
+	{:then assignments} 
+		{#each assignments || [] as assignment}
+			<Assignment bind:assignment bind:method bind:task/>
+		{:else}
+			<p>You have no assignments</p>
 		{/each}
-	{/if}
+		{:catch error}
+		<p>{error.message}</p>
+	{/await}
 {/if}

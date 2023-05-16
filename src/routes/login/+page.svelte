@@ -10,12 +10,19 @@
 
 <h1>Please Login</h1>
 <hr />
-
-<button on:click={setClient}>Client</button>
-<button on:click={setWorker}>Worker</button>
+<div class="flex_container">
+	<button on:click={setClient}>Client</button>
+	<button on:click={setWorker}>Worker</button>
+</div>
 
 {#if loginSwitch == 'CLIENT'}
 	<LoginClient />
 {:else}
 	<LoginWorker />
 {/if}
+
+<style>
+	button{
+		width:100%
+	}
+</style>

@@ -156,7 +156,7 @@
 			{:else if method == "Edit"}
 				<button on:click={confirmEdit}> Confirm</button>
 			{/if}
-			<button on:click={() => method = ""}> Cancel</button>
+			<button on:click={() => method = ""} class="btn red" > Cancel</button>
 		</div>
 	{:else}
 		<h4>{assignment.title}</h4>
@@ -177,7 +177,7 @@
 		{/if}
 		<div class="btn container">
 			<button on:click={confirmEdit} class="btn">{method}</button>
-			<button on:click={()=> method = ""} class="btn">Cancel</button>
+			<button on:click={()=> method = ""} class="btn red">Cancel</button>
 		</div>
 	{/if}
 

@@ -23,26 +23,27 @@
 	}
 </script>
 
-
-{#if $page == 'home'}
-	<div id="menu">
-		<button on:click={buildings}>Buildings</button>
-		<button on:click={availableAssignments}>Available Jobs</button>
-		<button on:click={myAssignments}>My Jobs</button>
-	</div>
-{/if}
-
-{#if $page == 'my_buildings'}
-	<MyBuildings />
-{/if}
-
-{#if $page == 'available_jobs'}
-	<AvailableAssignments />
-{/if}
-
-{#if $page == 'my_jobs'}
-	<MyAssignments />
-{/if}
-{#if $page == 'building'}
-	<Building />
-{/if}
+<div class="container">
+	{#if $page == 'home'}
+		<div id="menu">
+			<button on:click={buildings}>Buildings</button>
+			<button on:click={availableAssignments}>Available Jobs</button>
+			<button on:click={myAssignments}>My Jobs</button>
+		</div>
+	{/if}
+	
+	{#if $page == 'my_buildings'}
+		<MyBuildings />
+	{/if}
+	
+	{#if $page == 'available_jobs'}
+		<AvailableAssignments />
+	{/if}
+	
+	{#if $page == 'my_jobs'}
+		<MyAssignments />
+	{/if}
+	{#if $page == 'building'}
+		<Building />
+	{/if}
+</div>

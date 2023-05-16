@@ -1,20 +1,74 @@
 
+:root{
+    --blue: rgba(0,31,51,.9);
+    --cyan: #1ba098;
+    --gray: #5c6370;
+    --lightgray: #777d88;
+    --cancel: #ec5365;  
+}
+
+*{
+    color: white;
+}
+
+body{
+    background-color: var(--blue);
+}
+
+main{
+    padding: 6rem;
+    width: 60%;
+    min-width: 400px;
+    margin: auto;
+
+}
+
+nav{
+    font-family: BrandonTextWeb-Bold,sans-serif;
+    color: var(--cyan);
+}
+
+
+
 button, .btn{
     height: 2rem;
+    background: var(--gray);
+    border-color: var(--gray);
+    min-width: 5rem;
+}
+
+button:hover, .btn:hover{
+    background-color: var(--lightgray);
+}
+
+input{
+    color: black;
 }
 
 .btn{
     width: 100%;
+    background: var(--gray);
+    border-color: var(--gray);
+}
+.btn.red:hover{
+    background: var(--cancel) ;
+    border-color: var(--cancel);
+}
+
+.gold{
+    color: #deb992;
 }
 
 .btn.container {
     display: flex;
 }
 
-.container{
+.container, form{
     border-radius: 1rem;
     padding: 1rem;
     margin: 0.5rem;
+    text-align: center;
+    background-color: var(--blue);
 }
 
 .assignment {
@@ -26,4 +80,18 @@ button, .btn{
 .btn_container{
     display: flex;
     justify-content: space-evenly   ;
+}
+
+.flex_container{
+    display: flex;
+    justify-content: space-evenly   ;
+    align-items: center;
+}
+
+
+.even{
+    align-items: space-evenly;
+}
+.wide{
+    width: 100%;
 }

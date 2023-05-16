@@ -1,6 +1,7 @@
 <script>
 	import Nav from '../lib/components/Nav.svelte';
 	import "../style.css"
+	
 </script>
 
 <main>
@@ -8,7 +9,7 @@
 	<slot />
 </main>
 
-<style>
+<!-- <style>
 	main {
 		position: relative;
 		max-width: 58em;
@@ -22,4 +23,4 @@
 			max-width: 50%;
 		}
 	}
-</style>
+</style> -->

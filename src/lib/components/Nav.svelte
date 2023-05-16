@@ -55,7 +55,6 @@
 		text-decoration: none;
 		padding: 1em 0.5em;
 		display: block;
-		color: black;
 		font-size: 22px;
 	}
 </style>
