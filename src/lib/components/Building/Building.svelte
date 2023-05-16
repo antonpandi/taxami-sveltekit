@@ -221,7 +221,7 @@
 	{/await}
 
 
-<div class="container">
+<div class="assignment_container">
 	<button on:click={createAssignment}>Add Assignment</button>
 	{#await assignments}
 		<p>Waiting on assignments</p>
@@ -287,6 +287,7 @@
 <style>
 	.worker {
 		display: flex;
+		flex-direction: column;
 		justify-content: space-evenly;
 		background-color: var(--gray);
 	}
@@ -309,5 +310,16 @@
 	.radiomenu {
 		display: flex;
 	}
-	
+
+	.assignments{
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+
+	@media (min-width: 768px) {.assignments{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+}
 </style>

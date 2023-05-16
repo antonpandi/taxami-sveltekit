@@ -24,6 +24,7 @@
 			if ($user){
 				$authenticated = true;
 				$role = $user.role;
+				$page = "home"
 			}
 		}catch(error) {
 			console.error(error, error.message);
@@ -34,7 +35,7 @@
 	});
 </script>
 
-{#if $authenticated == true}
+{#if $authenticated}
 	{#if $page == 'home'}
 	<h2>Welcome back {message}!<!--  {$authenticated} {$role} --></h2>
 	{/if}

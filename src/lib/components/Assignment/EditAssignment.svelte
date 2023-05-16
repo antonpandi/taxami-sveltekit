@@ -1,7 +1,5 @@
 <script>
-	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import { onMount } from "svelte";
-	import MyAssignments from './MyAssignments.svelte';
 
 
     export let assignments, assignment, method, workers
@@ -100,6 +98,7 @@
 			.catch((err) => console.log(err));
 	};
 
+	$: console.log(assignment.deadline)
 </script>
 
 
@@ -133,7 +132,7 @@
 			</div>
 		</div>
 		<h4>Deadline</h4>
-		<input bind:value={assignment.deadline_date} type="date" name="date" id="" />
+		<input bind:value={assignment.deadline} type="date" name="date" id="" />
 		<h4>Email</h4>
 		<select name="workers" id="workers">
 			{#if workers}
@@ -175,7 +174,7 @@
 		{/if}
 		<hr>
 		<textarea bind:value={assignment.comment} type="text" name="comment" placeholder="Comment" cols="30" rows="10"></textarea>
-		<div class="btn container">
+		<div class="btn_container">
 			<button on:click={confirmEdit} class="btn">{method}</button>
 			<button on:click={()=> method = ""} class="btn red">Cancel</button>
 		</div>

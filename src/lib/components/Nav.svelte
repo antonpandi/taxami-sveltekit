@@ -78,19 +78,19 @@
 	<div id="nav-container" class={navcontainerclass}>
 		<!-- <h1>Header</h1> -->
 		<div id="menu" class={menuclass}>
-			<li class="nav"><a on:click={setPage} class="is-active">Home</a></li>
+			<div class="nav"><a on:click={setPage} class="is-active">Home</a></div>
 			{#if $role == "WORKER"}
-					<li class="nav"><a on:click={buildings}>Buildings</a></li>
-					<li class="nav"><a on:click={availableAssignments}>Available Jobs</a></li>
-					<li class="nav"><a on:click={myAssignments}>My Jobs</a></li> 	
+					<div class="nav"><a on:click={buildings}>Buildings</a></div>
+					<div class="nav"><a on:click={availableAssignments}>Available Jobs</a></div>
+					<div class="nav"><a on:click={myAssignments}>My Jobs</a></div> 	
 				{:else if $role == "ADMIN" || $role == "CLIENT"}
-					<li class="nav"><a on:click={myBuildings}>My Buildings</a></li>
-					<li class="nav"><a on:click={addBuilding}>Add New Building</a></li>	
+					<div class="nav"><a on:click={myBuildings}>My Buildings</a></div>
+					<div class="nav"><a on:click={addBuilding}>Add New Building</a></div>	
 			{/if}
 			{#if $authenticated}
-				<li class="nav"><a href="/" on:click={logout}>Logout</a></li>
+				<div class="nav"><a href="/" on:click={logout}>Logout</a></div>
 			{:else}
-				<li class="nav"><a href="/register">Register</a></li>
+				<div class="nav"><a href="/register">Register</a></div>
 				
 				<li class="nav"><a href="/login">Login</a></li>
 			{/if}
@@ -124,6 +124,13 @@
 		border-radius: 1rem;
 	}
 
+	.nav{
+		cursor: pointer;
+		padding:1rem;
+		display: flex;
+		align-items: center;
+	}
+
 	ul {
 		margin: 0;
 		padding: 0;
@@ -144,6 +151,7 @@
 	li.nav:hover{
 		background-color: var(--cyan);
 	}
+	
 
 	a {
 		text-decoration: none;
@@ -185,7 +193,7 @@
     display: grid;
     gap: 5px;
 
-    background-color: var(--blue);
+    background-color: var(--lightblue);
 }
 .is-hidden {
     display: none;
@@ -197,9 +205,9 @@
     left: 0;
     right: 0;
     z-index: 99;
-    background-color: var(--blue);
+    background-color: var(--lightblue);
     padding: 16px 32px;
-    border-bottom: 3px solid var(--blue);
+    border-bottom: 3px solid var(--lightblue);
 }
 
 .hamburger{
@@ -234,7 +242,7 @@
 
 .hamburger:hover span:nth-child(2) {
     transform: translateX(10px);
-    background-color: var(--blue);
+    background-color: var(--lightblue);
 }
 
 .hamburger.is-active span:nth-child(1) {
@@ -251,7 +259,7 @@
 }
 
 .hamburger.is-active:hover span {
-    background-color: var(--blue);
+    background-color: var(--lightblue);
 }
 
 

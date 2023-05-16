@@ -41,7 +41,8 @@
     <div class="profile container">
         <div class="pfp">
             <img class="pfp"  src="/Default_pfp.png" alt="">
-            <p>{profile.fname} {profile.fname}</p>
+            <p>{profile.fname} {profile.lname}</p>
+            <p>{profile.email}</p>
         </div>
         <div on:click={editUser} class="edit"><i class="fa-solid fa-pen"></i></div>
     </div>
@@ -58,7 +59,7 @@
         height: 80px;
     }
     .profile{
-        background-color: var(--blue);
+        background-color: var(--lightblue);
         margin: auto;
         width: 20%;
         padding: 2rem;
@@ -70,7 +71,7 @@
         cursor: pointer;
     }
     .edit_profile{
-        background-color: var(--blue);
+        background-color: var(--lightblue);
         margin: auto;
         display: flex;
         flex-direction: column;

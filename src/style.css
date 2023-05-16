@@ -1,7 +1,9 @@
 
 :root{
     --dodgerblue: #005A9C;
-    --blue: rgba(0,31,51,.9);
+    --darkblue: rgb(0, 31, 51);
+    --blue : rgb(12,40,73);
+    --lightblue: rgb(25, 67, 97);
     --cyan: #1ba098;
     --gray: #5c6370;
     --lightgray: #777d88;
@@ -13,7 +15,7 @@
 }
 
 body{
-    background-color: var(--blue);
+    background-color: var(--darkblue);
 }
 
 main{
@@ -77,7 +79,15 @@ input{
     padding: 1rem;
     margin: 0.5rem;
     text-align: center;
-    background-color: var(--blue);
+    background-color: var(--lightblue);
+}
+
+.container .container{
+    background-color: var(--blue)
+}
+
+.container .container .container{
+    background-color: var(--lightblue);
 }
 
 .assignment {
@@ -103,4 +113,8 @@ input{
 }
 .wide{
     width: 100%;
+}
+
+@media (min-width: 768px) {
+
 }

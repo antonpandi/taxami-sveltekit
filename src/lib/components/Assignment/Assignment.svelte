@@ -1,5 +1,6 @@
 
 <script>
+	
 
 	
     
@@ -9,7 +10,7 @@
     
     
 
-    export let assignment, method, task
+    export let assignment, method, task;
     
 	let assignmentClass = "";
     const setCompleted = () => { assignmentClass = assignment.priority ? "status completed priority" :"status completed" }
@@ -58,23 +59,41 @@
         method = "Delete";
         task = job;
     }
+
+
+    // let worker = getWorker();    
+    // async function getWorker(){
+    //     let res = await fetch('https://Mini-axami.antonpandi.repl.co/worker', {
+	// 		method: 'POST',
+	// 		headers: { 'Content-Type': 'application/json' },
+	// 		credentials: 'include',
+    //         body: JSON.stringify({
+    //             id : assignment.worker_id
+    //         })
+	// 	})
+    //     return await res.json();
+    // }
     
 
 
     $: assignment, setClassName();
+    // $: worker, console.log(worker);
 </script>
 
 
     <div class="container assignment"> 
-        <div class="flex_container">
-            <div class={assignmentClass}>
-
+        <div class="grid_container">
+            <div class="priority_container">
+                <p>{assignment.priority ? "High Priority": "Low Priority"}</p>
+                <div class={assignmentClass}></div>
+                <p>{assignment.worker_id ? "Worker assigned" : "No assigned worker"}</p>
             </div>
-            <div>
+            <div assignment_container>
                 <h3>{assignment.title}</h3>
                 <p>{assignment.description}</p>
-                <p>{assignment.estimated_cost}kr {assignment.estimated_time}h {assignment.deadline.split('T')[0]}</p>
-                <p>{assignment.comment}</p>
+                <p>{assignment.estimated_cost?assignment.estimated_cost:0}kr {assignment.estimated_time?assignment.estimated_time:0}h </p> 
+                <p>{assignment.deadline} </p>
+                <p>{assignment.comment ? assignment.comment : "No comments"}</p>
             </div>
         </div>
         <div class="btn_container">
@@ -100,9 +119,19 @@
 
 <style>
 
+    .container .assignment{
+        background-color: var(--black)
+    }
+    
+
+    .grid_container{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+
     .status {
-        width: 5rem;
-        height: 5rem;
+        width: 3rem;
+        height: 3rem;
         border-radius: 1rem;
     }
     
@@ -126,6 +155,13 @@
 
     .priority{
         border: 5px solid brown;
+    }
+
+    .priority_container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
 </style>

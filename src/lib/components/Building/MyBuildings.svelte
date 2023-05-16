@@ -6,6 +6,7 @@
 	import { building_id } from '../../stores/building';
 	import { page } from '../../stores/page';
 	import { role } from '../../stores/role';
+	import { user } from '../../stores/user';
 
 	let buildings = getBuildings(), method, selected;
 
@@ -92,8 +93,10 @@
 						<p>{building.type}</p>
 					</div>
 					<div class="flex_container">
-						<button on:click={() => setBuilding(building)} class="btn"> <i class="fa-solid fa-pen"></i> </button>
-						<button on:click={() => removeBuilding(building)}  class="btn red" ><i class=" fa fa-trash"></i></button>
+						{#if ($role == "CLIENT"  && building.client_id == user.id) || $role == "ADMIN"}
+							<button on:click={() => setBuilding(building)} class="btn"> <i class="fa-solid fa-pen"></i> </button>
+							<button on:click={() => removeBuilding(building)}  class="btn red" ><i class=" fa fa-trash"></i></button>
+						{/if}
 					</div>
 				</div>
 			{/each}
