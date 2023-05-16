@@ -1,6 +1,7 @@
 <script>
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import { onMount } from "svelte";
+	import MyAssignments from './MyAssignments.svelte';
 
 
     export let assignment, method, workers
@@ -38,14 +39,14 @@
 				assignment
 			})
 		})
-			.then()
+			.then(async(res) => assignments.unshift(await res.json()))
+			.then(() => method = null)
 			.catch((err) => console.log(err));
 	};
 
 	
-	const setAssignmentId = (ev) => {
-		let el = ev.target;
-		assignment.worker_id = el.value;
+	const setAssignmentId = (id) => {
+		assignment.worker_id = id;
 		console.log(assignment.worker_id);
 	};
 
@@ -107,7 +108,7 @@
 			<option on:click={setAssignmentId} value={null}>Loading workers</option>
 			{:then workers} 
 				{#each workers as worker}
-				<option  on:click={setAssignmentId} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
+				<option  on:click={setAssignmentId(worker.id)} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
 				{/each}
 			{/await}
 			{/if}

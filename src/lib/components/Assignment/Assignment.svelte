@@ -61,11 +61,9 @@
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
 			body: JSON.stringify({
-				id: task.id
+				id: job.id
 			})
 		})
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
         }
     }
     
