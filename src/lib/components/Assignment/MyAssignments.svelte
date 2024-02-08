@@ -1,5 +1,6 @@
 <script>
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
+	import URL from '$lib/components/URL.js'
 	import { onMount } from "svelte";
 	import EditAssignment from './EditAssignment.svelte';
 	import { bind } from 'svelte/internal';
@@ -10,7 +11,7 @@
     async function getTasks(){
         
 			console.log("trying to get buildings")
-			let response = await fetch('https://Mini-axami.antonpandi.repl.co/assignments/worker', {
+			let response = await fetch(URL('assignments/worker'), {
 				method: 'GET',
 				credentials: 'include'
 			})

@@ -3,18 +3,22 @@
 	import { authenticated} from '../lib/stores/auth';
 	import { role } from '../lib/stores/role';
 	import { user } from '../lib/stores/user';
+	import URL from '$lib/components/URL.js'
 
 	//Components
 	import Menu from '../lib/components/Menu/Menu.svelte';
-	import { page } from '../lib/stores/page';
+	import { page } from '$lib/stores/page';
+
 
 	let message = '';
 	$: console.log(message);
 	$: console.log($user);
 
+
+
 	onMount(async () => {
 		try {
-			let res = await fetch('https://Mini-axami.antonpandi.repl.co/user', {
+			let res = await fetch(URL('user'), {
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include'
 			})

@@ -1,9 +1,10 @@
-<script>
+  <script>
+	  import URL from '$lib/components/URL.js'
     import { onMount } from "svelte";
     let workers = [];
 
     onMount(async () => {
-      const data = await fetch("https://Mini-axami.antonpandi.repl.co/workers");
+      const data = await fetch(URL("workers"));
       let result = await data.json();
       console.log(data);
       console.log(result);

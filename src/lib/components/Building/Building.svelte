@@ -1,5 +1,6 @@
 <script>
 	//Components
+	import URL from '$lib/components/URL.js'
 	import Building from '$lib/components/Building/Building.svelte';
 	import Assignment  from '$lib/components/Assignment/Assignment.svelte';
 	import EditAssignment from './../Assignment/EditAssignment.svelte';
@@ -35,7 +36,7 @@
 		assignment_email;
 
 	onMount(async () => {
-		await fetch('https://Mini-axami.antonpandi.repl.co/find/building', {
+		await fetch(URL('find/building'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -51,7 +52,7 @@
 	});
 
 	async function getWorkers(){
-		let response = await fetch('https://Mini-axami.antonpandi.repl.co/workers/mine', {
+		let response = await fetch(URL('workers/mine'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -68,7 +69,7 @@
 		}
 	};
 	async function getAssignments(){
-		let response = await fetch('https://Mini-axami.antonpandi.repl.co/assignments/building', {
+		let response = await fetch(URL('assignments/building'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -88,7 +89,7 @@
 	}
 
 	const addAssignment = () => {
-		fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
+		fetch(URL('add/assignment'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -136,7 +137,7 @@
 	const linkWorker = (ev) => {
 		let email = ev.target.worker_email;
 
-		fetch('https://Mini-axami.antonpandi.repl.co/link/buildings', {
+		fetch(URL('link/buildings'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',

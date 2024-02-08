@@ -4,6 +4,7 @@
     import {user} from '$lib/stores/user';
 	import { onMount } from 'svelte';
 	import { bind } from 'svelte/internal';
+	import URL from '$lib/components/URL.js'
 
     let profile,method;
 
@@ -23,7 +24,7 @@
 
         let opt = profile.role == "WORKER" ? "worker" : "client";
 
-        await fetch(`https://Mini-axami.antonpandi.repl.co/edit/${opt}`, {
+        await fetch(URL(`edit/${opt}`), {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',

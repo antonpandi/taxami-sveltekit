@@ -7,6 +7,7 @@
 	import { page } from '../../stores/page';
 	import { role } from '../../stores/role';
 	import { user } from '../../stores/user';
+	import URL from '$lib/components/URL.js'
 
 	let buildings = getBuildings(), method, selected;
 
@@ -16,7 +17,7 @@
 	async function getBuildings(){
 		try {
 			console.log("trying to get buildings")
-			const response = await fetch('https://Mini-axami.antonpandi.repl.co/buildings/mine', {
+			const response = await fetch(URL('buildings/mine'), {
 				method: 'GET',
 				credentials: 'include'
 			});
@@ -41,7 +42,7 @@
 		if (confirm(text)) {
 			console.log('Building deleted: ', building);
 			
-			const response = await fetch('https://Mini-axami.antonpandi.repl.co/remove/buildings', {
+			const response = await fetch(URL('remove/buildings'), {
 				method: 'DELETE',
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include',

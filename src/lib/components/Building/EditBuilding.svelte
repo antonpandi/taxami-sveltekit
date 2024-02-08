@@ -2,12 +2,13 @@
 	import { bind } from 'svelte/internal';
 	import { goto } from '$app/navigation';
 	import { page } from '../../stores/page';
+	import URL from '$lib/components/URL.js'
 
     export let building, method;
 
 	const submit = async () => {
 
-		const response = await fetch('https://Mini-axami.antonpandi.repl.co/edit/buildings', {
+		const response = await fetch(URL('edit/buildings'), {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',

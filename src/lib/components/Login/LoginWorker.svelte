@@ -6,7 +6,7 @@
 	const submitWorker = async () => {
 		console.log('Submit:', 'Email:', email);
 
-		await fetch('https://Mini-axami.antonpandi.repl.co/login/worker', {
+		await fetch(URL('login/worker'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -22,9 +22,11 @@
 </script>
 
 <form on:submit|preventDefault={submitWorker}>
-	<h4>Email:</h4>
-	<input bind:value={email} type="email" name="email" placeholder="Email" />
-	<hr />
+	<div class="form_item">
+		<h4>Email:</h4>
+		<input bind:value={email} type="email" name="email" placeholder="Email" />
+		<hr />
+	</div>
 
-	<button type="submit"> Login </button>
+	<button class="submit" type="submit"> Login </button>
 </form>

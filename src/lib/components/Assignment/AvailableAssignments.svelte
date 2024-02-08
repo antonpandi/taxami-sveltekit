@@ -1,5 +1,7 @@
 
 <script>
+	
+	import URL from '$lib/components/URL.js'
     import { onMount } from 'svelte';
 	import Assignment from '$lib/components/Assignment/Assignment.svelte';
 	import EditAssignment from './EditAssignment.svelte';
@@ -10,7 +12,7 @@
 
 		try {
 			console.log("trying to get buildings")
-			const response = await fetch('https://Mini-axami.antonpandi.repl.co/assignments/available', {
+			const response = await fetch(URL('assignments/available'), {
 				method: 'GET',
 				credentials: 'include'
 			});

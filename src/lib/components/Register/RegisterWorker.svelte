@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import URL from '$lib/components/URL.js'
 
 	let fname = '',
 		lname = '',
@@ -7,7 +8,7 @@
 		password = '';
 
 	const submit = async () => {
-		const res = await fetch('https://Mini-axami.antonpandi.repl.co/add/worker', {
+		const res = await fetch(URL('/add/worker'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({

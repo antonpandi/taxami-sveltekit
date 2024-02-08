@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '../../stores/page';
+	import URL from '$lib/components/URL.js'
 
 	let type = '',
 		adress = '';
@@ -13,7 +14,7 @@
 		let body = JSON.stringify({ type, adress });
 		console.log('Sending request', 'Body: ', body);
 
-		const response = await fetch('https://Mini-axami.antonpandi.repl.co/add/buildings', {
+		const response = await fetch(URL('add/buildings'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',

@@ -1,5 +1,6 @@
 
 <script>
+	import URL from '$lib/components/URL.js'
 	import EditAssignment from "./EditAssignment.svelte";
 
     export let assignment, assignments, workers
@@ -31,7 +32,7 @@
         let option = confirm(`Are you sure you want to delete this assignment? ${assignment.title}`)
         console.log(option)
         if(option){
-            await fetch('https://Mini-axami.antonpandi.repl.co/remove/assignment', {
+            await fetch(URL('remove/assignment'), {
 			method: 'DELETE',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',

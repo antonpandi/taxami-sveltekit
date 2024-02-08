@@ -1,4 +1,5 @@
 <script>
+	import URL from '$lib/components/URL.js'
 	import { onMount } from "svelte";
 
 
@@ -10,7 +11,7 @@
 			let option = confirm(`Are you sure you want to delete this assignment? \N ${assignment.title}`)
 			console.log(option)
 			if(option){
-				await fetch('https://Mini-axami.antonpandi.repl.co/remove/assignment', {
+				await fetch(URL('remove/assignment'), {
 				method: 'DELETE',
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include',
@@ -36,7 +37,7 @@
 	
     const confirmEdit = async () => { 
         assignment.deadline = assignment.deadline_date
-        await fetch('https://Mini-axami.antonpandi.repl.co/edit/assignment', {
+        await fetch(URL('edit/assignment'), {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -55,7 +56,7 @@
 
 	const addAssignment = async () => {
 
-		let response = await fetch('https://Mini-axami.antonpandi.repl.co/add/assignment', {
+		let response = await fetch(URL('add/assignment'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
@@ -85,7 +86,7 @@
 	const linkWorker = (ev) => {
 		let email = ev.target.worker_email;
 
-		fetch('https://Mini-axami.antonpandi.repl.co/link/buildings', {
+		fetch(URL('link/buildings'), {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
