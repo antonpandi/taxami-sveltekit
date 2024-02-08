@@ -31,7 +31,6 @@
 		}
 
         console.log("Assignment", assignment);
-        assignment.deadline_date = assignment.deadline.split('T')[0];
 		}
     })
 	
@@ -45,9 +44,31 @@
 				assignment: assignment,
 				method: method
 			})
-		})
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+		}).then(async res => result = await res.json())
+		.catch(err => console.error(err))
+
+		console.log("Result", result);
+		try{
+				console.log("Assignment", typeof assignment, assignment)
+				assignments.then((items) => { assignments = items.map((a) => {
+					if(a.id == assignment.id) a = result
+					console.log(a)
+					return a
+				})})
+				console.log(assignments)
+			}catch(error) {
+				console.error(error);
+				assignments = assignments.map((a) => {
+					if(a.id == assignment.id) a = result
+					console.log(a)
+					return a
+				})
+				console.log(assignments)
+			}finally{
+				method = null
+			}
+
+
         method = "";
     }
 
@@ -137,12 +158,12 @@
 		<h4>Email</h4>
 		<select name="workers" id="workers">
 			{#if workers}
-			<option on:click={setAssignmentId(null)} value={null} selected>No worker</option>
+			<option on:click={() => {setAssignmentId(null)}} value={null} selected>No worker</option>
 			{#await workers}
 			<option on:click={setAssignmentId} value={null}>Loading workers</option>
 			{:then workers} 
 				{#each workers as worker}
-				<option  on:click={setAssignmentId(worker.id)} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname}</option>
+				<option  on:click={() => {setAssignmentId(worker.id)}} value={worker.id} selected={worker.id == assignment.worker_id} >{worker.fname} {worker.lname} : {worker.id}</option>
 				{/each}
 			{/await}
 			{/if}

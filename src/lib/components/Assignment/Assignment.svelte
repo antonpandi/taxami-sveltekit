@@ -19,9 +19,18 @@
     const setUnassigned = () => {assignmentClass = assignment.priority ? "status unassigned priority" : "status unassigned"}
 
     const deadlineMeet = () => {
-        let date = new Date();
-        let deadline = new Date(assignment.deadline)
-        return date >= deadline;
+        let date, deadline 
+        try {
+            date = new Date();
+            deadline = new Date(assignment.deadline)
+            date.setHours(0, 0, 0, 0)
+            deadline.setHours(0, 0, 0, 0)
+            console.log(date, deadline)
+        } catch (error) {
+            console.error("Error: ", error)
+        }finally{        
+            return date > deadline;
+        }
     }
 
     const setClassName = () => {
@@ -59,22 +68,6 @@
         method = "Delete";
         task = job;
     }
-
-
-    // let worker = getWorker();    
-    // async function getWorker(){
-    //     let res = await fetch('https://Mini-axami.antonpandi.repl.co/worker', {
-	// 		method: 'POST',
-	// 		headers: { 'Content-Type': 'application/json' },
-	// 		credentials: 'include',
-    //         body: JSON.stringify({
-    //             id : assignment.worker_id
-    //         })
-	// 	})
-    //     return await res.json();
-    // }
-    
-
 
     $: assignment, setClassName();
     // $: worker, console.log(worker);
