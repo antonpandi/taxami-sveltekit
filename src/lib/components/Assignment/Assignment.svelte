@@ -91,7 +91,7 @@
         </div>
         <div class="btn_container">
             
-            {#if $role == 'WORKER'}
+            {#if $user.role == 'WORKER'}
                 {#if !assignment.worker_id}
                     <button on:click={()=>{takeOnAssignment(assignment)}} class="btn"> Take on Assignment </button>
                 {:else if assignment.worker_id == $user.id}
@@ -102,7 +102,7 @@
                         <button on:click={()=>{dropAssignment(assignment)}} class="btn"> Drop Assignment </button>
                     {/if}
                 {/if}
-            {:else if $role == "ADMIN" || $role == "CLIENT"}
+            {:else if $user.role == "ADMIN" || $role == "CLIENT"}
                 <button on:click={()=>editAssignment(assignment)} class="btn">Edit</button>
                 <button on:click={() => deleteAssignment(assignment)} class="btn red">Delete</button>
             {/if}

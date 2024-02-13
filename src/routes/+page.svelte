@@ -16,27 +16,27 @@
 
 
 
-	onMount(async () => {
-		try {
-			let res = await fetch(URL('user'), {
-				headers: { 'Content-Type': 'application/json' },
-				credentials: 'include'
-			})
-			$user = await res.json();	
-			message = `${$user.fname}  ${$user.lname}`;
+	// onMount(async () => {
+	// 	try {
+	// 		let res = await fetch(URL('user'), {
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			credentials: 'include'
+	// 		})
+	// 		$user = await res.json();	
+	// 		message = `${$user.fname}  ${$user.lname}`;
 
-			if ($user){
-				$authenticated = true;
-				$role = $user.role;
-				$page = "home"
-			}
-		}catch(error) {
-			console.error(error, error.message);
-			message = 'You are not authenticated';
-			$authenticated = false;
-			$role = null;
-		}
-	});
+	// 		if ($user){
+	// 			$authenticated = true;
+	// 			$role = $user.role;
+	// 			// $page = "home"
+	// 		}
+	// 	}catch(error) {
+	// 		console.error(error, error.message);
+	// 		message = 'You are not authenticated';
+	// 		$authenticated = false;
+	// 		$role = null;
+	// 	}
+	// });
 </script>
 
 {#if $authenticated}

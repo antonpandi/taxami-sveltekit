@@ -1,6 +1,11 @@
 <script>
 	import LoginClient from '../../lib/components/Login/LoginClient.svelte';
 	import LoginWorker from '../../lib/components/Login/LoginWorker.svelte';
+
+	import { authenticated} from '$lib/stores/auth';
+	import { role } from '$lib/stores/role';
+	import { user } from '$lib/stores/user';
+
 	import { page } from '$lib/stores/page';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -17,7 +22,7 @@
 	let email = '',
 		password = '';
 		
-	const submitClient = async () => {
+	const login = async () => {
 		console.log('Submit:', 'Email:', email, 'Password:', password);
 		await fetch(URL(loginSwitch == "CLIENT"?'login/client':'login/worker'), {
 			method: 'POST',
@@ -29,7 +34,14 @@
 				'role':loginSwitch
 			})
 		})
-		.then((res) => console.log(res))
+		.then((res) => res.json())
+		.then((data) => {
+			console.log("Response: ", data)
+			console.log("User: ", data.user)
+			$user = data.user;
+			$authenticated = true;
+			// $role = $user.role;
+		})
 		.catch((err) => console.log(err));
 		
 		goto('/');
@@ -43,17 +55,17 @@
 	<h1>Sign in</h1>
 </div>
 <br />
-<div>
+<div class="login-page page-box">
 	<div class="login_type">
 		<button class:selected={loginSwitch=='CLIENT'} on:click={setClient}>Client</button>
 		<button class:selected={loginSwitch=='WORKER'} on:click={setWorker}>Worker</button>
 	</div>
-	<div class="container">
+	<div>
 		<br>
 
 		
 		
-		<form on:submit|preventDefault={submitClient}>
+		<form class="login-form" on:submit|preventDefault={login}>
 			<div class="form_item">
 				<h4>Email:</h4>
 				<input bind:value={email} type="email" name="email" placeholder="Email" />
@@ -79,6 +91,17 @@
 </div>
 
 <style>
+	.login-page{
+		padding: 0;
+		display: block;
+	}
+	.login-form{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 10rem;
+	}
 	.form_item>h4{
 		text-align: left;
 	}
@@ -86,7 +109,6 @@
 		padding: 0;
 		display: flex;
 		justify-content: left;
-		max-width: 400px;
 		
 		
 	}
