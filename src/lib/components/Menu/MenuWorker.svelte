@@ -4,7 +4,7 @@
 	import AvailableAssignments from '$lib/components/Assignment/AvailableAssignments.svelte';
 	import MyAssignments from '$lib/components/Assignment/MyAssignments.svelte';
 	import Building from '$lib/components/Building/Building.svelte';
-	import Profile from '$lib/components/Profile/Profile.svelte';
+	// import Profile from '$lib/components/Profile/Profile.svelte';
 
 
 	//Variables
@@ -26,7 +26,8 @@
 
 <div class="container">
 	{#if $page == 'home'}
-		<Profile />
+		<h1>Welcome back!</h1>
+		<!-- <Profile /> -->
 	{/if}
 	
 	{#if $page == 'my_buildings'}

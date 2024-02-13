@@ -3,7 +3,7 @@
 	import AddBuilding from '../Building/AddBuilding.svelte';
 	import MyBuildings from '../Building/MyBuildings.svelte';
 	import Building from '../Building/Building.svelte';
-	import Profile from '$lib/components/Profile/Profile.svelte';
+	// import Profile from '$lib/components/Profile/Profile.svelte';
 
 	//Variables
 	import { page } from '../../stores/page';
@@ -19,7 +19,8 @@
 </script>
 <div class="container">
 	{#if $page == 'home'}
-		<Profile />
+		<h1>Welcome back!</h1>
+		<!-- <Profile /> -->
 	{/if}
 	
 	{#if $page == 'my_buildings'}
