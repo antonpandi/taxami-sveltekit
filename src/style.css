@@ -2,7 +2,7 @@
 :root{
     --primary: #2d4a53;
     --secondary: #69818D;
-    --button: #2d4a53;
+    --button: #132e35;
     --selected: #132e35;  
     --background: #5a636a;
     --main:#AFB3B7;
@@ -85,6 +85,10 @@ button, .btn{
     background-color:var(--selected);
 }
 
+button.selected{
+    background-color: var(--primary);
+}
+
 button:hover, .btn:hover{
     background-color: var(--secondary);
     cursor: pointer;
@@ -97,8 +101,7 @@ input{
 }
 
 .btn:hover{
-    background: var(--dodgerblue);
-    border-color: var(--dodgerblue);
+    background: var(--primary);
 }
 .btn.red:hover{
     background: var(--cancel) ;
@@ -154,6 +157,19 @@ input{
 }
 .wide{
     width: 100%;
+}
+
+.page-box{
+    margin: 5rem auto;
+    width: 80%;
+    max-width: 800px;
+    height: 60vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-shadow: 0 30px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* Big */
