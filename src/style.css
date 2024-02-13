@@ -34,9 +34,6 @@ body{
     background-color: var(--light);
 }
 
-main{
-    margin-left: 5rem;
-}
 
 .navbar{
     position: fixed;
@@ -159,6 +156,15 @@ input{
     width: 100%;
 }
 
-@media (min-width: 768px) {
+/* Big */
+@media only screen and (min-width: 600px) {
+    
+    main{
+        margin-left: 5rem;
+    }
+}
+
+/* Small */
+@media only screen and (max-width: 600px) {
 
 }
