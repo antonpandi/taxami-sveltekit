@@ -3,7 +3,7 @@
 	import URL from '$lib/components/URL.js'
 	import Building from '$lib/components/Building/Building.svelte';
 	import Assignment  from '$lib/components/Assignment/Assignment.svelte';
-	import EditAssignment from './../Assignment/EditAssignment.svelte';
+	import EditAssignment from '../Assignment/EditAssignment.svelte';
 	import ClientAssignment from '$lib/components/Assignment/ClientAssignment.svelte';
 	import { onMount } from 'svelte';
 
