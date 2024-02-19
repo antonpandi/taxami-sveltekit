@@ -173,9 +173,12 @@ input{
     main{
         margin-left: 5rem;
     }
+
 }
 
 /* Small */
 @media only screen and (max-width: 600px) {
-
+    .page-box{
+        box-shadow: none;
+    }
 }
