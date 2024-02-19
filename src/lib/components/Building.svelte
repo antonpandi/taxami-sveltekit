@@ -3,6 +3,19 @@
 	import { onMount } from 'svelte';
     export let building;
 
+
+
+    async function getWorker(user_id){
+        let res = await fetch(URL("get/worker"), {
+            method: "POST",
+            headers:{ "content-type": "application/json" },
+            credentails: "include",
+            body: JSON.stringify({id:user_id}),
+        })
+        console.log(await res.json())
+        return await res.json()
+    }
+
     async function getAssignments(){
 
 		try {
@@ -13,9 +26,19 @@
                 credentials: 'include',
             })
 
-			let result = await response.json()
-			console.log(result.result)
-			return result.result;
+			let res = await response.json()
+
+            let data = res.result;
+			console.log(data);
+
+            data = data.map((d)=> {
+                if (d.worker_id) d.woker = getWorker(d.worker_id);
+                return d;
+            })
+
+            console.log(data)
+            
+			return data;
 		} catch (error) {
 			console.log(error)
 		}
@@ -32,8 +55,10 @@
             Loading assignemtns...
         {:then assignments}
             {#each assignments as assignment}
-                this in an assignment
-                <br>
+                <div class="assignment" >
+                <h3>{assignment.title}</h3>
+                <p>{assignment.description}</p>
+                </div>
             {/each}
         {:catch error}
             <p>No assignemtns found</p>
@@ -49,5 +74,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .assignments{
+        width:80%;
+        gap:5px;
+    }
+
+    .assignment{
+        padding: 2rem;
+        background-color: #eeeeee;
+    }
+    .assignment:nth-child(even){
+        background-color: #ffffff;
     }
 </style>
