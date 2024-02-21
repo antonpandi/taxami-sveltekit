@@ -7,7 +7,7 @@
 
 	//Components
 	import Menu from '../lib/components/Menu/Menu.svelte';
-	import { page } from '$lib/stores/page';
+	import { page } from '$app/stores';
 
 
 	let message = '';
@@ -38,6 +38,8 @@
 	// 	}
 	// });
 </script>
+
+{$page}
 
 {#if $authenticated}
 	{#if $page == 'home'}

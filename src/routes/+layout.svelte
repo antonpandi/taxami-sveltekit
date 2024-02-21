@@ -1,6 +1,18 @@
 <script>
+	import { goto } from '$app/navigation';
 	import Nav from '../lib/components/Nav.svelte';
 	import "../style.css"
+	import {user} from "$lib/stores/user.js"
+	import { onMount } from 'svelte';
+	
+	onMount(()=>{
+		if(!$user){
+			goto('/');
+		}
+	})
+
+
+
 	
 </script>
 

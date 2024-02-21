@@ -2,14 +2,14 @@
 	import Nav from './Nav.svelte';
 	import URL from './URL.js'
 	import { authenticated } from '$lib/stores/auth';
-	import { page } from '../stores/page';
-	// import {page} from '$app/stores';
+	// import { page } from '../stores/page';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { role } from '../stores/role';
 	import { user } from '../stores/user';
 	import { onMount } from 'svelte';
 
-	onMount(()=> $page = "login")
+	// onMount(()=> $page = "login")
 
 	let swap = true,
 	navcontainerclass = "container",
@@ -81,10 +81,10 @@
 
 
 <nav class="navbar">
-	<p>{$page}</p>
+	<p>{$page, $user.fname}</p>
 	<ul class="navbar-nav ">
 		<li class="logo">
-			<a href="" class="nav-link">
+			<a href="" class="nav-link" class:selected={$page.url.pathname === '/'}>
 				<span class="link-text">Taxami</span>
 			</a>
 		</li>
@@ -119,14 +119,14 @@
 		</li>
 		<!-- Not logged in -->
 		{:else}
-			<li class="nav-item" class:selected={$page=="login"}>
+			<li class="nav-item" class:selected={$page.url.pathname === "login"}>
 				<a href="/login" class="nav-link">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
 					</svg>
 					<span class="link-text">Login</span>
 				</a>
 			</li>
-			<li class="nav-item" class:selected={$page=="register"}>
+			<li class="nav-item" class:selected={$page.url.pathname === "register"}>
 				<a href="/register" class="nav-link">
 					<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path  d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
 					<span class="link-text">Register</span>
