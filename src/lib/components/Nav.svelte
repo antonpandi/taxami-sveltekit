@@ -6,7 +6,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { role } from '../stores/role';
-	import { user } from '../stores/user';
+	import { user } from '$lib/stores/user';
 	import { onMount } from 'svelte';
 
 	// onMount(()=> $page = "login")
@@ -81,7 +81,7 @@
 
 
 <nav class="navbar">
-	<p>{$page, $user.fname}</p>
+	<p>{$page, $user}</p>
 	<ul class="navbar-nav ">
 		<li class="logo">
 			<a href="" class="nav-link" class:selected={$page.url.pathname === '/'}>

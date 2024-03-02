@@ -9,6 +9,8 @@
 		if(!$user){
 			goto('/');
 		}
+		console.log("User: ",$user)
+		console.log($user.id);
 	})
 
 
