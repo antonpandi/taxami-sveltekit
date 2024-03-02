@@ -6,7 +6,8 @@
 	// import Profile from '$lib/components/Profile/Profile.svelte';
 
 	//Variables
-	import { page } from '../../stores/page';
+	import { page } from '$app/stores';
+	// import { page } from '../../stores/page';
 
 	const myBuildings = () => {
 		page.set('my_buildings');

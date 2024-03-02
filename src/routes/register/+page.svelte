@@ -1,10 +1,10 @@
 <script>
 	import RegisterClient from '../../lib/components/Register/RegisterClient.svelte';
 	import RegisterWorker from '../../lib/components/Register/RegisterWorker.svelte';
-	import { page } from '$lib/stores/page';
+	import { page } from '$app/stores';
+	// import { page } from '$lib/stores/page';
 	import { onMount } from 'svelte';
 
-	onMount(()=> $page = "register")
 
 	let registerSwitch = 'CLIENT';
 

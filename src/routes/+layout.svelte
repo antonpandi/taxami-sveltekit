@@ -5,13 +5,13 @@
 	import {user} from "$lib/stores/user.js"
 	import { onMount } from 'svelte';
 	
-	onMount(()=>{
-		if(!$user){
-			goto('/');
-		}
-		console.log("User: ",$user)
-		console.log($user.id);
-	})
+	// onMount(()=>{
+	// 	if(!$user){
+	// 		goto('/');
+	// 	}
+	// 	console.log("User: ",$user)
+	// 	console.log($user.id);
+	// })
 
 
 

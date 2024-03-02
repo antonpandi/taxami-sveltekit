@@ -39,16 +39,9 @@
 	// });
 </script>
 
-{$page}
+<h2>{$page.url.pathname}</h2>
 
-{#if $authenticated}
-	{#if $page == 'home'}
-	<h2>Welcome back {message}!<!--  {$authenticated} {$role} --></h2>
-	{/if}
-	<Menu />
-{:else}
-	<h2>Please login/register to continue</h2>
-{/if}
+<h1>Welcome to Taxami</h1>
 
 <style>
 	h2{

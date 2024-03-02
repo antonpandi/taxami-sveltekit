@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '../../stores/page';
+	import { page } from '$app/stores';
+	// import { page } from '../../stores/page';
 	import URL from '$lib/components/URL.js'
 
 	let type = '',

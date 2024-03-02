@@ -3,8 +3,9 @@
 	import EditBuilding from './EditBuilding.svelte';
 	import { onMount } from 'svelte';
 	import Building from './Building.svelte';
-	import { building_id } from '../../stores/building';
-	import { page } from '../../stores/page';
+	import { building } from '../../stores/building';
+	import { page } from '$app/stores';
+	// import { page } from '../../stores/page';
 	import { role } from '../../stores/role';
 	import { user } from '../../stores/user';
 	import URL from '$lib/components/URL.js'
@@ -34,7 +35,6 @@
 
 	const selectBuilding = (id) => {
 		page.set('building');
-		building_id.set(id);
 	};
 
 	const removeBuilding = async (building) => {

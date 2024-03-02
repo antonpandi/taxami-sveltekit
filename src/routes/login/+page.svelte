@@ -6,12 +6,12 @@
 	import { role } from '$lib/stores/role';
 	import { user } from '$lib/stores/user';
 
-	import { page } from '$lib/stores/page';
+	import { page } from '$app/stores';
+	// import { page } from '$lib/stores/page';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import URL from "$lib/components/URL.js"
 
-	onMount(()=> $page = "login")
 
 	let loginSwitch = 'CLIENT';
 
@@ -22,7 +22,7 @@
 	let email = '',
 		password = '';
 		
-	const login = async () => {
+	async function login(){
 		console.log('Submit:', 'Email:', email, 'Password:', password);
 		await fetch(URL(loginSwitch == "CLIENT"?'login/client':'login/worker'), {
 			method: 'POST',

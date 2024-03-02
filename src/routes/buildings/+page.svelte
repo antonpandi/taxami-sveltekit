@@ -6,15 +6,18 @@
 	import { user } from '$lib/stores/user';
 
 
-	import { page } from '$lib/stores/page';
+	import { page } from '$app/stores';
+	// import { page } from '$lib/stores/page';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import URL from "$lib/components/URL.js"
+	import { building } from '$lib/stores/building';
     let selected = false;
 
     
     function setBuilding(props){
-        selected = props;
+        $building = props;
+        goto("/buildings/"+$building.id)
     }
 
 
@@ -25,10 +28,12 @@
 				credentials: 'include'
 		})
 
-        let data = await res.json();
-        console.log("Data: ", data);
-        return data;
+        $buildings = await res.json();
+        console.log("Buildings", $buildings);
+        return $buildings;
     }
+
+
 </script>
 
 <h1>Buildings</h1>
@@ -36,24 +41,17 @@
 {#await getBuildings()}
     <p>Loading buildings...</p>
 {:then buildings}
-    {#if selected}
-        <div>
-            <Building bind:building={selected}/>
-        </div>
-    {:else}
-        {#each buildings as building}
-        
-        <div class="building" on:click|preventDefault={() => {setBuilding(building)}}>
+    {#each buildings as b}
+        <div class="building" on:click|preventDefault={() => {setBuilding(b)}}>
             <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" alt="">
             <div class="info">
-                <a href="/" on:click|preventDefault={() => {setBuilding(building)}}>
-                    <h3 class="adress">{building.adress}</h3>
+                <a href="/" on:click|preventDefault={() => {setBuilding(b)}}>
+                    <h3 class="adress">{b.adress}</h3>
                 </a>
-                <p>{building.type}</p>
+                <p>{b.type}</p>
             </div>
         </div>
-        {/each}
-    {/if}
+    {/each}
 {:catch error}
     <p>{error.message}</p>
 {/await}
@@ -68,8 +66,9 @@
         align-items: center;
     }
     .building img{
-        width: 20%;
-        height: auto;
+        width: auto;
+        height: 100%;
+        object-fit: cover;
     }
 
     .building:nth-child(even){
