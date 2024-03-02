@@ -8,7 +8,6 @@
 	import { onMount } from 'svelte';
 
 	//Variables
-	import { building_id } from '../../stores/building';
 	import { each } from 'svelte/internal';
 	import { role } from '../../stores/role';
 

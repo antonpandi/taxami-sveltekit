@@ -22,11 +22,11 @@
 		// 	headers: { 'Content-Type': 'application/json' },
 		// 	credentials: 'include'
 		// });
-		authenticated.set(false);
-		role.set(false);
-		user.set(false);
+		$authenticated = false;
+		$role = null;
+		$user = null;
 		
-		await goto('login');
+		goto('login');
 	};
 	const setPage = () => {
 		page.set('home');
@@ -81,7 +81,6 @@
 
 
 <nav class="navbar">
-	<p>{$page, $user}</p>
 	<ul class="navbar-nav ">
 		<li class="logo">
 			<a href="" class="nav-link" class:selected={$page.url.pathname === '/'}>

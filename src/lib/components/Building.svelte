@@ -1,7 +1,12 @@
 <script>
+	import { workers } from '$lib/stores/workers.js';
     import URL from "$lib/components/URL.js"
 	import { onMount } from 'svelte';
     export let building;
+
+    onMount(async () =>{
+        getWorkers();
+    })
 
 
 
@@ -15,6 +20,25 @@
         console.log(await res.json())
         return await res.json()
     }
+
+    async function getWorkers(){
+		let response = await fetch(URL('building/workers'), {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
+			body: JSON.stringify({
+				building
+			})
+		})
+		try {
+				let result = await response.json()
+                $workers = result.workers;
+				console.log("Workers: ", $workers)
+				return result;
+		} catch (error) {
+			console.log(error)
+		}
+	};
 
     async function getAssignments(){
 
@@ -32,7 +56,7 @@
 			console.log(data);
 
             data = data.map((d)=> {
-                if (d.worker_id) d.woker = getWorker(d.worker_id);
+                if (d.worker_id) d.worker = $workers.find((w)=> {return w.id==d.worker_id});
                 return d;
             })
 
