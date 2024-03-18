@@ -95,6 +95,23 @@
 
 	}
 
+
+
+    function convertTime(value){
+        console.log(value)
+        value = value.toString();
+        let arr = value.split(":")
+        let hours = Number(arr[0]);
+        let min = Number(arr[1]);
+        if(min > 0) return hours + "h " + min + "min"
+        
+        return hours + "h"
+    }
+
+
+
+
+
 </script>
 
 {#await getBuilding()}
@@ -111,11 +128,23 @@
                 {#if assignments.length > 0}
                     {#each assignments as assignment}
                         <div class="assignment" >
-                        <h3>{assignment.title}</h3>
-                        <p>{assignment.description}</p>
-                        {#if assignment.worker}
-                            <p>Assigned to {assignment.worker.fname} {assignment.worker.lname}</p>
-                        {/if}
+                            <div>
+                                <h3>{assignment.title}</h3>
+                                <p>{assignment.description}</p>
+                                {#if assignment.worker}
+                                    <p>Assigned to {assignment.worker.fname} {assignment.worker.lname}</p>
+                                {/if}
+                            </div>
+                            <div>
+                                <p>{assignment.deadline}</p>
+                                {#if assignment.completed}
+                                    <p>{assignment.total_cost?assignment.total_cost:0}kr</p>
+                                    <p>{assignment.total_time?assignment.total_time:0}kr</p>
+                                {:else}
+                                    <p>{assignment.estimated_cost?assignment.estimated_cost:0}kr</p>
+                                    <p>{convertTime(assignment.estimated_time?assignment.estimated_time:0)}</p>
+                                {/if}
+                            </div>
                         </div>
                     {/each}
                 {:else}
@@ -138,22 +167,28 @@
 
 
 <style>
+
     .building{
-        width: 80%;
         margin: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+    .building img{
+        width: 100%;
+    }
 
     .assignments{
-        width:80%;
+        width:100%;
         gap:5px;
     }
 
     .assignment{
         padding: 2rem;
         background-color: #eeeeee;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
     .assignment:nth-child(even){
         background-color: #ffffff;
