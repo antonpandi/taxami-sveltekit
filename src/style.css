@@ -30,6 +30,10 @@
     font-family: 'Fira sans', sans-serif;
 }
 
+main{
+    width: clamp( 40vw, 700px, 100%);
+}
+
 body{
     background-color: var(--light);
 }
@@ -171,7 +175,8 @@ input{
 @media only screen and (min-width: 600px) {
     
     main{
-        margin-left: 5rem;
+        margin: auto;
+        padding-left: 5rem;
     }
 
 }

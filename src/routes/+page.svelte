@@ -39,7 +39,6 @@
 	// });
 </script>
 
-<h2>{$page.url.pathname}</h2>
 
 <h1>Welcome to Taxami</h1>
 
